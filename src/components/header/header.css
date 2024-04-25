@@ -1,0 +1,14 @@
+.navbar-nav li {
+    padding: 0 10px 0 10px;
+
+}
+
+.nav-items {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+.nav-items:hover {
+    color: blue;
+}
