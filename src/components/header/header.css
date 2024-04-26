@@ -1,14 +1,25 @@
-.navbar-nav li {
-    padding: 0 10px 0 10px;
-
+.navbar-brand {
+    padding-top: 0;
 }
 
-.nav-items {
+.nav-item {
     text-decoration: none;
     color: black;
     font-size: 18px;
+    padding: 0 10px;
 }
 
-.nav-items:hover {
+.nav-item:hover {
     color: blue;
+}
+
+.abc {
+    display: flex;
+    justify-content: flex-end
+}
+
+@media (max-width: 768px) {
+    .ml-auto {
+        margin-left: auto !important;
+    }
 }
