@@ -19,40 +19,34 @@ const Header = (args) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Container>
-      <div>
-        <Navbar {...args} expand="sm">
-          <Link to="/" className="navbar-brand">
-            <img src={images.NavLogo} alt="" />
-          </Link>
-          <NavbarToggler onClick={toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className="ms-auto" navbar>
-              {" "}
-              {/* Use ms-auto for margin-left: auto */}
-              <NavItem>
-                <Link to="/pricing" className="nav-item">
-                  Pricing
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/about" className="nav-item">
-                  About us
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/contact" className="nav-item">
-                  Contact
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Button color="info">Log in</Button>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    </Container>
+    <Navbar {...args} expand="lg" fixed="top" className="bg-light">
+      <Link to="/" className="navbar-brand ">
+        <img src={images.NavLogo} alt="" />
+      </Link>
+      <NavbarToggler onClick={toggle} />
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="ms-auto" navbar>
+          <NavItem>
+            <Link to="/pricing" className="nav-item ">
+              Pricing
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/about" className="nav-item">
+              About us
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/contact" className="nav-item">
+              Contact
+            </Link>
+          </NavItem>
+          <NavItem className="loginBtnMediaQuery">
+            <Button color="info">Log in</Button>
+          </NavItem>
+        </Nav>
+      </Collapse>
+    </Navbar>
   );
 };
 

@@ -1,6 +1,5 @@
-bannerContent {
+.studentContent {
     padding: 20px;
-
 }
 
 .bg-image {
@@ -10,6 +9,7 @@ bannerContent {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
 }
 
 
@@ -20,7 +20,7 @@ bannerContent {
 
 
 
-.btnHome {
+.studentBtn {
     display: inline-block;
     font-size: 26px;
     margin: 8px 15px;
@@ -33,41 +33,70 @@ bannerContent {
 }
 
 /* css after home banner */
-.eduHome {
-    padding-top: 10%;
+.eduBgcolor {
+    background-color: rgb(227, 236, 239);
+    padding: 30px;
 }
 
-.learnHome {
-    margin: 0 400px 0 400px;
+.eduText {
+    padding-top: 5%;
 }
+
+.eduLearn {
+    padding: 0 20px;
+
+}
+
 
 /* why stetthups */
-.hello {
-    padding: 0 150px 0 150px;
-}
 
 .bgColor {
     background-color: rgb(3, 47, 192);
-    padding: 0 0 50px 0;
+    padding: 50px 0;
 }
 
 .bgColorText {
-    padding: 65px 0 0 0;
+    padding: 20px 0;
 }
 
 .btnGetStart {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
+
 }
+
+@media (max-width: 768px) {
+    .btnGetStart {
+        margin-top: 0;
+
+    }
+}
+
+
 
 .btnPrepare {
-    width: 15%;
-    margin: 0 0 0 42%;
+    width: auto;
+
 }
 
-.accrodian {
-    padding: 0 0 15px 0;
-    margin: 20px 0 20px 0;
+.overlayImg {
+    background: rgba(0, 0, 0, 0.9);
 }
+
+.checkDoctorImg {
+    display: flex;
+    justify-content: center;
+}
+
+.accordionBgColor {
+    padding: 3%;
+    background-color: rgb(216, 218, 220);
+}
+
+/* @media (max-width: 992px) {
+    .popo {
+        margin-bottom: 15px;
+    }
+} */
