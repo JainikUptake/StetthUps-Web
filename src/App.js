@@ -9,7 +9,7 @@ import LoginFormEmail from "./pages/login/loginWithEmail/loginWithEmail";
 const App = () => {
   return (
     <>
-      <Home />
+      <LoginFormEmail />
     </>
   );
 };

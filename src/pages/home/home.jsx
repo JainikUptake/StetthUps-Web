@@ -32,8 +32,8 @@ const Home = () => {
     <>
       <Header />
 
-      <Container>
-        <Row className="bg-image">
+      <Row className="bg-image">
+        <Container>
           <Col lg={6} className="studentContent mt-5 p-5">
             <div className="display-3 fw-bolder">
               Only Audio Visual Question Bank Globally
@@ -54,8 +54,8 @@ const Home = () => {
               </button>
             </div>
           </Col>
-        </Row>
-      </Container>
+        </Container>
+      </Row>
 
       <div className="eduBgColor">
         <Container>
@@ -271,6 +271,7 @@ const Home = () => {
           </Accordion>
         </div>
       </div>
+
       <Footer />
     </>
   );
