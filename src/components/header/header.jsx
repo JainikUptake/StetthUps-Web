@@ -19,7 +19,7 @@ const Header = (args) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar {...args} expand="lg" fixed="top" className="bg-light">
+    <Navbar {...args} expand="lg" fixed="top" className="bg-white " container>
       <Link to="/" className="navbar-brand ">
         <img src={images.NavLogo} alt="" />
       </Link>
@@ -41,7 +41,7 @@ const Header = (args) => {
               Contact
             </Link>
           </NavItem>
-          <NavItem className="loginBtnMediaQuery">
+          <NavItem className="loginBtnMediaQuery loginBtn">
             <Button color="info">Log in</Button>
           </NavItem>
         </Nav>

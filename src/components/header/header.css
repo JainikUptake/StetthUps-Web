@@ -28,5 +28,10 @@
 @media (max-width: 991px) {
     .loginBtnMediaQuery {
         margin-left: 6px;
+        padding-top: 8px
     }
+}
+
+.loginBtn {
+    margin-top: -7px;
 }
