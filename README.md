@@ -19,3 +19,9 @@
 ## npm install --save bootstrap
 
 ## npm install --save aos@next
+
+## npm i --save @fortawesome/fontawesome-svg-core
+
+## npm i --save @awesome.me/kit-KIT_CODE
+
+## npm i --save @fortawesome/react-fontawesome@latest
