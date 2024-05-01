@@ -25,3 +25,5 @@
 ## npm i --save @awesome.me/kit-KIT_CODE
 
 ## npm i --save @fortawesome/react-fontawesome@latest
+
+## npm i react-redux

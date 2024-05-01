@@ -1,0 +1,30 @@
+.logIn {
+    margin-top: 50px;
+}
+
+.text-black {
+    color: black;
+}
+
+.loginBtn {
+    color: white;
+    background-color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.signUpLink {
+    text-decoration: none;
+}
+
+.signUpLink {
+    color: black;
+}
+
+.signUpLink:hover {
+    color: rgb(64, 64, 228);
+}
