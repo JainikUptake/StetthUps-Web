@@ -9,25 +9,35 @@ import PrivateRoute from "./routes/PrivateRoute";
 import Home from "./pages/home/home";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import useAuth from "./hooks/useAuth";
+import { Provider } from "react-redux";
+import store from "./store";
+
+const cors = require("cors");
+
+cors({
+  origin: "http://localhost:3000",
+});
 
 const Root = () => {
   const isAuth = useAuth();
   return (
-    <BrowserRouter>
-      <Routes>
-        {isAuth
-          ? ProtectedRoute.map((route, index) => (
-              <Route key={index} {...route} />
-            ))
-          : PrivateRoute.map((route, index) => (
-              <Route key={index} {...route} />
-            ))}
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          {isAuth
+            ? ProtectedRoute.map((route, index) => (
+                <Route key={index} {...route} />
+              ))
+            : PrivateRoute.map((route, index) => (
+                <Route key={index} {...route} />
+              ))}
 
-        {publicRoute.map((route, index) => (
-          <Route key={index} {...route} />
-        ))}
-      </Routes>
-    </BrowserRouter>
+          {publicRoute.map((route, index) => (
+            <Route key={index} {...route} />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 };
 ReactDOM.render(<Root />, document.getElementById("root"));

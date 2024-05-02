@@ -2,7 +2,7 @@
 import { useState } from "react";
 import images from "../../assets";
 import "./header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 
 const Header = (args) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -42,7 +43,9 @@ const Header = (args) => {
             </Link>
           </NavItem>
           <NavItem className="loginBtnMediaQuery loginBtn">
-            <Button color="info">Log in</Button>
+            <Button color="info" onClick={() => navigate("/auth/login/email")}>
+              Log in
+            </Button>
           </NavItem>
         </Nav>
       </Collapse>
