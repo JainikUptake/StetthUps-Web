@@ -32,7 +32,7 @@ const Header = () => {
           src={images.userHomeHeaderLogo}
           className="userHeader"
         />
-        <span> Steth Up </span>
+        <span>Steth Up</span>
       </NavbarBrand>
       <div>
         <ArrowDownToLine

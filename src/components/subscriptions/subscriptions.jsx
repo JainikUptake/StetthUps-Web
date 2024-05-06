@@ -2,7 +2,7 @@ import { ChevronRight, CircleChevronRight } from "lucide-react";
 import React from "react";
 import "./subscriptions.css";
 
-const SubscriptionPage = () => {
+const Subscription = () => {
   return (
     <div className="card" style={{ width: "12rem" }}>
       <div className="card-body">
@@ -18,4 +18,4 @@ const SubscriptionPage = () => {
   );
 };
 
-export default SubscriptionPage;
+export default Subscription;

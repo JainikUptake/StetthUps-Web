@@ -8,7 +8,7 @@ import {
   Settings,
 } from "lucide-react";
 import React from "react";
-import "./HomePage.css";
+
 import images from "../../../assets";
 import { Col, Container, Navbar, NavbarBrand, Row } from "reactstrap";
 import Header from "../../../components/usersite/header/header";
