@@ -12,14 +12,8 @@ import useAuth from "./hooks/useAuth";
 import { Provider } from "react-redux";
 import store from "./store";
 
-const cors = require("cors");
-
-cors({
-  origin: "http://localhost:3000",
-});
-
 const Root = () => {
-  const isAuth = useAuth();
+  const isAuth = true;
   return (
     <Provider store={store}>
       <BrowserRouter>

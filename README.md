@@ -27,3 +27,7 @@
 ## npm i --save @fortawesome/react-fontawesome@latest
 
 ## npm i react-redux
+
+## npm install lucide-react
+
+## npm install sweetalert2

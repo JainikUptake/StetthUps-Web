@@ -11,7 +11,7 @@ export const loginUser = createAsyncThunk(
       console.log(API_LOGIN, "check url");
       console.log(`${API_LOGIN}/v1/email/login/`, "double check");
       const response = await axios.post(
-        `http://13.200.241.242/api/v1/email/login/ `,
+        `${API_LOGIN}/v1/email/login/`,
         userCredential
       );
       console.log(response, "main");
