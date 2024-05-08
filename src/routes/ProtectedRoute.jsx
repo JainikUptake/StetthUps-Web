@@ -1,17 +1,27 @@
 import { Navigate } from "react-router-dom";
 import Dashboard from "../pages/usersite/dashboard/dashboard";
-import Profile from "../pages/usersite/profile/profile";
 import HomePage from "../pages/usersite/Homepage/HomePage";
 import SubscriptionPage from "../pages/usersite/subscriptions/SubscriptionPage";
 import Setting from "../pages/Settings/setting";
+import Streaks from "../pages/usersite/Streaks/Streaks";
+import ContactUs from "../pages/usersite/contactUs/contactUs";
+import AboutUs from "../pages/usersite/AboutUs/AboutUs";
+import FAQs from "../pages/usersite/FAQ/FAQ";
+import UserProfile from "../pages/usersite/UserProfile/UserProfile";
+import Statistics from "../pages/usersite/Statistics/statistics";
 
 const ProtectedRoute = [
   { path: `*`, element: <Navigate to="/user/dashboard" replace /> },
   { path: `user/dashboard`, element: <Dashboard /> },
-  { path: `user/profile`, element: <Profile /> },
   { path: `user/home`, element: <HomePage /> },
   { path: `user/sub`, element: <SubscriptionPage /> },
+  { path: `user/Streaks`, element: <Streaks /> },
   { path: `user/setting`, element: <Setting /> },
+  { path: `user/contact`, element: <ContactUs /> },
+  { path: `user/about`, element: <AboutUs /> },
+  { path: `user/faqs`, element: <FAQs /> },
+  { path: `user/profile`, element: <UserProfile /> },
+  { path: `user/statistics`, element: <Statistics /> },
 ];
 
 export default ProtectedRoute;

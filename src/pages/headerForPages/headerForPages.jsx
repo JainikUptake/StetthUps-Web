@@ -28,13 +28,13 @@ const HeaderForPages = () => {
     <>
       <Container>
         <Navbar className="my-2" color="white" white sticky="top">
-          <NavbarBrand href="/">
+          <NavbarBrand href="/" className="d-flex align-items-center">
             <img
               alt="logo"
               src={images.userHomeHeaderLogo}
-              className="headerPages"
+              className="headerPages img-fluid "
             />
-            <span className="fs-4"> Reactstrap</span>
+            <span className="fs-2 mx-3"> Steth Up</span>
           </NavbarBrand>
           <LogOut
             size={48}

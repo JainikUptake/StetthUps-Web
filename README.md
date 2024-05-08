@@ -31,3 +31,5 @@
 ## npm install lucide-react
 
 ## npm install sweetalert2
+
+## npm install recharts

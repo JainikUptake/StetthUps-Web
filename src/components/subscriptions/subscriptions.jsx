@@ -4,7 +4,7 @@ import "./subscriptions.css";
 
 const Subscription = () => {
   return (
-    <div className="card" style={{ width: "12rem" }}>
+    <div className="card card-shadow" style={{ width: "12rem" }}>
       <div className="card-body">
         <h5 className="card-title text-center">NEET/NEXT </h5>
         <h6 className="card-subtitle mb-3 text-center">India</h6>

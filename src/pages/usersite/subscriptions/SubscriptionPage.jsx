@@ -14,8 +14,9 @@ const SubscriptionPage = () => {
         <span>Subscriptions</span>
       </Container>
 
-      <div className="d-flex justify-content-evenly mt-3">
+      <div className="d-flex flex-wrap justify-content-evenly mt-3">
         <Subscription />
+
         <Subscription />
         <Subscription />
         <Subscription />
