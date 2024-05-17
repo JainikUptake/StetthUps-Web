@@ -9,7 +9,7 @@ import Register from "../pages/auth/register/register";
 const PrivateRoute = [
   { path: `*`, element: <Navigate to="/auth/login/email" replace /> },
   
-  { path: `auth/login/phone/verify`, element: <Verify /> },
+  { path: `auth/login/phone/verify/:phone`, element: <Verify /> },
   { path: `auth/login/email`, element: <Email /> },
   { path: `auth/login/phone`, element: <Phone /> },
   { path: `auth/register`, element: <Register /> },

@@ -44,7 +44,7 @@ const Phone =   () => {
             text: `${response.payload.data.message}`,
             icon: "success"
           });
-          navigate("/")
+          navigate(`/auth/login/phone/verify/${phone}`)
           
           
         }
