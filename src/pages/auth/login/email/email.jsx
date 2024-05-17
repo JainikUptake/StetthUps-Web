@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../../../redux-toolkit/UserSlice";
 import axios from "axios";
+import Swal from 'sweetalert2';
 // import { loginUser } from "../../../../redux-toolkit/UserSlice";
 const Email = () => {
   //redux state
@@ -36,13 +37,24 @@ const Email = () => {
     e.preventDefault();
     try {
       const userCredential = {
-        userEmail,
+        email:userEmail,
         password,
       };
       console.log(userCredential);
       const response = await dispatch(loginUser(userCredential));
 
       console.log(response);
+      const status = response.payload.user
+    if(status){
+      Swal.fire({
+        title: "Success!",
+        text: `login Successful`,
+        icon: "success"
+      });
+      navigate('user/dashboard')
+      
+      
+    }
     } catch (error) {
       console.log(error);
     }

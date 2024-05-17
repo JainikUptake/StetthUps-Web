@@ -4,7 +4,17 @@ import { json } from "react-router-dom";
 
 const API_LOGIN = process.env.REACT_APP_API_URL;
 
-// register
+// declare initialState here
+
+const initialState =  {
+  loading: false,
+  token:localStorage.getItem("token"),
+  user: null,
+  error: null,
+}
+
+
+// register fill collage 
 
 export const registerClg = createAsyncThunk(
   "user/getAllColleges",
@@ -21,13 +31,45 @@ export const registerClg = createAsyncThunk(
   }
 );
 
+// register verify User
+export const verifyUser = createAsyncThunk(
+  "user/verifyUser",
+  async (userCredentials) => {
+    try {
+      // console.log()
+      const response = await axios.post(
+        `${API_LOGIN}/v1/verify/otp`,userCredentials
+      );
+      console.log(response.data.data.access_token, "main");
+      return response.data.data
+    } catch (error) {
+      console.log(error, "error here");
+    }
+  }
+);
+
+export const logout = createAsyncThunk(
+  "user/logout",
+  async () => {
+    try {
+      // console.log()
+      const response = await axios.post(
+        `${API_LOGIN}/v1/logout`
+      );
+      // console.log(response.data.data.access_token, "main");
+      return response
+    } catch (error) {
+      console.log(error, "error here");
+    }
+  }
+);
 
 
 
 
 
 
-
+//  login user
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -37,14 +79,17 @@ export const loginUser = createAsyncThunk(
         `${API_LOGIN}/v1/email/login`,
         userCredential
       );
-      console.log(response, "main");
+      console.log(response.data.data, "main");
+      return response.data.data
     } catch (error) {
       console.log(error, "error here");
     }
   }
 );
 
-// 
+//  login with phonenumber 
+
+
 export const loginWithPhone = createAsyncThunk(
   "user/loginWithPhone",
   async ({userPhone}) => {
@@ -65,14 +110,12 @@ export const loginWithPhone = createAsyncThunk(
   }
 );
 
+// Slice of all auth
 
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    loading: false,
-    user: null,
-    error: null,
-  },
+  initialState,
+ 
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -82,7 +125,9 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.token = action.payload;
+        console.log(state.token.access_token,"tokennnnnnnnnnnn")
+        localStorage.setItem("token",state.token.access_token)
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -120,6 +165,7 @@ const userSlice = createSlice({
       });
 
       // register Clg
+
       builder
       .addCase(registerClg.pending, (state) => {
         state.loading = true;
@@ -134,6 +180,47 @@ const userSlice = createSlice({
       .addCase(registerClg.rejected, (state, action) => {
         state.loading = false;
         // state.user = null;
+        state.error = action.error.message;
+
+      });
+
+      // verify user
+
+      builder
+      .addCase(verifyUser.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(verifyUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.token = action.payload;
+        console.log(state.token.access_token,"tokennnnnnnnnnnn")
+        localStorage.setItem("token",state.token.access_token)
+        state.error = null;
+      })
+      .addCase(verifyUser.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.error.message;
+
+      });
+
+      //logout
+      builder
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
         state.error = action.error.message;
 
       });

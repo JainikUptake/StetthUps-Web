@@ -13,7 +13,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 const Root = () => {
-  const isAuth = false;
+  const isAuth = useAuth();
   return (
     <Provider store={store}>
       <BrowserRouter>

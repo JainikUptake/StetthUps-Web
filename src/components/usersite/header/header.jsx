@@ -1,61 +1,4 @@
-// import React from "react";
-// import "./header.css";
-// import { ArrowDownToLine, Container, LogOut } from "lucide-react";
-// import images from "../../../assets";
-// import { Navbar, NavbarBrand } from "reactstrap";
-// import Swal from "sweetalert2";
 
-// const Header = () => {
-//   const handleLogOut = () => {
-//     Swal.fire({
-//       title: "Are you sure?",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonColor: "#3085d6",
-//       cancelButtonColor: "#d33",
-//       confirmButtonText: "Yes, log out",
-//     }).then((result) => {
-//       if (result.isConfirmed) {
-//         Swal.fire({
-//           title: "LOG OUT!",
-//           text: " ",
-//           icon: "success",
-//         });
-//       }
-//     });
-//   };
-//   return (
-//     <Navbar className="my-2" color="white" white container fixed="top">
-//       <NavbarBrand href="/">
-//         <img
-//           alt="logo"
-//           src={images.userHomeHeaderLogo}
-//           className="userHeader"
-//         />
-//         <span>Steth Up</span>
-//       </NavbarBrand>
-//       <div>
-//         <ArrowDownToLine
-//           size={40}
-//           strokeWidth={3}
-//           absoluteStrokeWidth
-//           className="mx-4"
-//         />
-
-//         <LogOut
-//           size={40}
-//           strokeWidth={3}
-//           absoluteStrokeWidth
-//           onClick={handleLogOut}
-//         />
-//       </div>
-//     </Navbar>
-//   );
-// };
-
-// export default Header;
-
-// import React, { useState } from "react";
 import { useState } from "react";
 import images from "../../../assets";
 import "./header.css";
@@ -74,7 +17,9 @@ const Header = (args) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-
+const handleLogout =() =>{
+  
+}
   return (
     <Navbar {...args} expand="lg" fixed="top" className="bg-white " container>
       <Link to="/" className="navbar-brand ">
@@ -84,7 +29,7 @@ const Header = (args) => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ms-auto" navbar>
           <NavItem className="loginBtnMediaQuery loginBtn">
-            <Button color="info" onClick={() => navigate("/auth/login/email")}>
+            <Button color="info" onClick={handleLogout}>
               Log out
             </Button>
           </NavItem>

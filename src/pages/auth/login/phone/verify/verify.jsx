@@ -9,22 +9,61 @@ import {
   Button,
 } from "reactstrap";
 import "../phone.css";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { verifyUser } from '../../../../../redux-toolkit/UserSlice';
+import Swal from 'sweetalert2';
+
 
 
 
 const Verify = () => {
-  const handleLoginWithPhone = ()=>{
-    
-  }
-
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
 const [otp, setOtp] = useState('')
+// const [phoneNum, setPhoneNum] = useState("")
 console.log(otp)
+
 const params = useParams()
-// console.log(params.phone)
 const phone =params.phone
+
+const handleLoginWithPhone = async (e)=>{
+  console.log(phone,'lllll')
+  console.log(otp,'jfgvfj')
+  
+  e.preventDefault()
+  
+
+  try {
+    const userCredentials = {
+      phone,
+      otp,
+    };
+    console.log(userCredentials);
+    const response = await dispatch(verifyUser(userCredentials));
+
+    console.log(response);
+    const status = response.payload.user
+    if(status){
+      Swal.fire({
+        title: "Success!",
+        text: `login Successful`,
+        icon: "success"
+      });
+      navigate('user/dashboard')
+      
+      
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  // Getting Value 
+
+  // if(phone)
+
+
+  }
 
 
   return (
