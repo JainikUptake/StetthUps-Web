@@ -8,20 +8,21 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (userCredential) => {
     try {
-      console.log(API_LOGIN, "check url");
-      console.log(`${API_LOGIN}/v1/email/login/`, "double check");
       const response = await axios.post(
         `${API_LOGIN}/v1/email/login/`,
-        userCredential
+        userCredential,
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE , OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          },
+        }
       );
       console.log(response, "main");
     } catch (error) {
       console.log(error, "error here");
     }
-
-    // const response = request?.data.data;
-    // localStorage.setItem("user", json.stringify(response));
-    // return response;
   }
 );
 
