@@ -16,7 +16,7 @@ const Phone = () => {
     <>
       <Container className="border border-5 border-dark w-50">
         <div className="text-center my-5">
-          <h2>Login</h2>
+          <h2>Login With Phone Number</h2>
         </div>
 
         <div>
@@ -29,12 +29,7 @@ const Phone = () => {
                   className="form-control shadow-on-hover w-25"
                 />
               </div>
-              <FormGroup check className="mb-4 d-flex justify-content-center">
-                <Input type="checkbox" id="rememberMe" />
-                <label htmlFor="rememberMe" className="form-check-label mx-3">
-                  Remember Me
-                </label>
-              </FormGroup>
+    
 
               <div className="d-grid gap-2 mb-4  d-flex justify-content-center">
                 <button className=" loginBtn w-25" type="button">
@@ -44,7 +39,7 @@ const Phone = () => {
               <div className="mb-4">
                 <p className=" d-flex justify-content-center text-muted">
                   Not a user?{" "}
-                  <Link to="" className=" signUpLink mx-1">
+                  <Link to="auth/register" className=" signUpLink mx-1">
                     Sign Up
                   </Link>
                 </p>
@@ -52,8 +47,8 @@ const Phone = () => {
               <div className="mb-4">
                 <p className=" d-flex justify-content-center text-muted">
                   Or Login through{" "}
-                  <Link to="" className="signUpLink mx-1">
-                    Phone No
+                  <Link to="auth/login/email" className="signUpLink mx-1">
+                    Email
                   </Link>
                 </p>
               </div>
