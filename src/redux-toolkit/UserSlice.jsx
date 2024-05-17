@@ -9,15 +9,8 @@ export const loginUser = createAsyncThunk(
   async (userCredential) => {
     try {
       const response = await axios.post(
-        `${API_LOGIN}/v1/email/login/`,
-        userCredential,
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE , OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-          },
-        }
+        `${API_LOGIN}/v1/email/login`,
+        userCredential
       );
       console.log(response, "main");
     } catch (error) {
@@ -25,6 +18,23 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+
+// 
+export const loginWithPhone = createAsyncThunk(
+  "user/loginWithPhone",
+  async ({userPhone}) => {
+    try {
+      const response = await axios.post(
+        `${API_LOGIN}/v1/send/otp`,
+        userPhone
+      );
+      console.log(response, "main");
+    } catch (error) {
+      console.log(error, "error here");
+    }
+  }
+);
+
 
 const userSlice = createSlice({
   name: "user",
@@ -54,6 +64,30 @@ const userSlice = createSlice({
         } else {
           state.error = action.error.message;
         }
+      });
+      // login with number
+
+      builder
+      .addCase(loginWithPhone.pending, (state) => {
+        state.loading = true;
+        state.user = null;
+        state.error = null;
+      })
+      .addCase(loginWithPhone.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(loginWithPhone.rejected, (state, action) => {
+        state.loading = false;
+        state.user = null;
+        state.error = action.error.message;
+        // console.log(action.error.message);
+        // if (action.error.message === "request failed ") {
+        //   state.error = "access denied";
+        // } else {
+        //   state.error = action.error.message;
+        // }
       });
   },
 });

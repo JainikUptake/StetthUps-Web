@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -9,9 +9,41 @@ import {
   Button,
 } from "reactstrap";
 import "./phone.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginWithPhone } from "../../../../redux-toolkit/UserSlice";
 
 const Phone = () => {
+
+  const { loading, error } = useSelector((state) => state.user);
+
+  const [phone, setPhone] = useState("")
+
+
+
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
+  const handlePhoneNum = async (e) => {
+    e.preventDefault();
+    try {
+      const userPhone = {
+      phone
+      };
+      console.log(userPhone);
+      const response = await dispatch(loginWithPhone(userPhone));
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+
   return (
     <>
       <Container className="border border-5 border-dark w-50">
@@ -21,12 +53,14 @@ const Phone = () => {
 
         <div>
           <div>
-            <form>
+            <form onClick={handlePhoneNum}>
               <div className="mb-4  d-flex justify-content-center">
                 <Input
                   type="tel"
                   placeholder=" Enter Your Phone No "
                   className="form-control shadow-on-hover w-25"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
     
