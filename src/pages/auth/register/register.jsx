@@ -140,8 +140,13 @@ const Register = () => {
                 Current Year
               </Label>
               <Input id="exampleSelect" name="select" type="select">
-                <option>1</option>
-                <option>2</option>
+              <option disabled selected>Please select</option>
+                                                <option value="1st year">1st year</option>
+                                                <option value="2nd year">2nd year </option>
+                                                <option value="3rd year">3rd year </option>
+                                                <option value="final Year">Final Year</option>
+                                                <option value="intern">Intern </option>
+                                                <option value="post intern">Post Intern</option>
               </Input>
             </FormGroup>
           </Col>
@@ -154,8 +159,12 @@ const Register = () => {
                 Preparing for
               </Label>
               <Input id="exampleSelect" name="select" type="select">
-                <option>1</option>
-                <option>2</option>
+              <option disabled selected>Please select</option>
+                                                <option value="NEET/NEXT">NEET/NEXT</option>
+                                                <option value="FMGE">FMGE</option>
+                                                <option value="USMLE">USMLE</option>
+                                                <option value="PLAB">PLAB</option>
+                                                <option value="other">other</option>
               </Input>
             </FormGroup>
           </Col>
@@ -165,8 +174,30 @@ const Register = () => {
                 Interested Field
               </Label>
               <Input id="exampleSelect" name="select" type="select">
-                <option>1</option>
-                <option>2</option>
+              <option disabled selected>Please select</option>
+                                                <option value="Anatomy">Anatomy</option>
+                                                <option value="Physiology">Physiology</option>
+                                                <option value="Biochemistry">Biochemistry</option>
+                                                <option value="Microbiology">Microbiology</option>
+                                                <option value="Pathology">Pathology </option>
+                                                <option value="Forensic Medicine">Forensic Medicine </option>
+                                                <option value="Preventive and social medicine">Preventive and social
+                                                    medicine </option>
+                                                <option value="E.N.T">E.N.T</option>
+                                                <option value="Ophthalmology">Ophthalmology </option>
+                                                <option value="MEDICINE">MEDICINE </option>
+                                                <option value="Psychiatry">Psychiatry </option>
+                                                <option value="skin and venereology">Skin and venereology</option>
+                                                <option value="Respiratory Medicine">Respiratory Medicine </option>
+                                                <option value="Family Medicine">Family Medicine</option>
+                                                <option value="Emergency Medicine">Emergency Medicine </option>
+                                                <option value="Pediatrists">Pediatrists</option>
+                                                <option value="Obstetrics and gynaecology">Obstetrics and gynaecology
+                                                </option>
+                                                <option value="Surgery">Surgery </option>
+                                                <option value="Orthopaedics">Orthopaedics</option>
+                                                <option value="Anesthesia">Anesthesia</option>
+                                                <option value="Radiology">Radiology</option>
               </Input>
             </FormGroup>
           </Col>
