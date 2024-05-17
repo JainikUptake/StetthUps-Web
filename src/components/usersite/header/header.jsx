@@ -11,13 +11,39 @@ import {
   NavItem,
   Button,
 } from "reactstrap";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux-toolkit/ProfileSlice";
 
 const Header = (args) => {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-const handleLogout =() =>{
+const handleLogout =async (e) =>{
+  e.preventDefault()
+  
+
+  try {
+   
+
+    const response = await dispatch(logout());
+
+    console.log(response);
+    // const status = response.payload.profile
+    // if(status){
+    //   Swal.fire({
+    //     title: "Success!",
+    //     text: `login Successful`,
+    //     icon: "success"
+    //   });
+      // navigate('user/dashboard')
+      
+      
+    // }
+  } catch (error) {
+    console.log(error);
+  }
   
 }
   return (

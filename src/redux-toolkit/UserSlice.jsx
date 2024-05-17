@@ -48,21 +48,7 @@ export const verifyUser = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(
-  "user/logout",
-  async () => {
-    try {
-      // console.log()
-      const response = await axios.post(
-        `${API_LOGIN}/v1/logout`
-      );
-      // console.log(response.data.data.access_token, "main");
-      return response
-    } catch (error) {
-      console.log(error, "error here");
-    }
-  }
-);
+
 
 
 
@@ -206,24 +192,7 @@ const userSlice = createSlice({
 
       });
 
-      //logout
-      builder
-      .addCase(logout.pending, (state) => {
-        state.loading = true;
-        state.user = null;
-        state.error = null;
-      })
-      .addCase(logout.fulfilled, (state, action) => {
-        state.loading = false;
-        state.user = action.payload;
-        state.error = null;
-      })
-      .addCase(logout.rejected, (state, action) => {
-        state.loading = false;
-        state.user = null;
-        state.error = action.error.message;
 
-      });
   },
 });
 
