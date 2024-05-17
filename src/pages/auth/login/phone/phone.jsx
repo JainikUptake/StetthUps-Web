@@ -12,10 +12,11 @@ import "./phone.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginWithPhone } from "../../../../redux-toolkit/UserSlice";
+import Swal from "sweetalert2";
 
-const Phone = () => {
+const Phone =   () => {
 
-  const { loading, error } = useSelector((state) => state.user);
+  const {user, loading, error } = useSelector((state) => state.user);
 
   const [phone, setPhone] = useState("")
 
@@ -32,16 +33,45 @@ const Phone = () => {
       const userPhone = {
       phone
       };
-      console.log(userPhone);
-      const response = await dispatch(loginWithPhone(userPhone));
-
+      console.log(userPhone , "in phone");
+      const response = await dispatch(loginWithPhone({userPhone}));
       console.log(response);
+        // const message = response.payload.message   
+        const status = response.payload.status
+        if(status == 200){
+          Swal.fire({
+            title: "Success!",
+            text: `${response.payload.data.message}`,
+            icon: "success"
+          });
+          navigate("/")
+          
+          
+        }
+  // console.log(message,"messsage")
+  console.log(status,"status")
+
+
+      return response;
+
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: "Error!",
+        text:"User Not Found!",
+        icon: "error"
+      });
     }
   };
+//   if(phone){
+//     const response = await dispatch(loginWithPhone(phone))
+//     console.log(response,"-----------mmm----------------")
+  
 
-
+//   const message = response.Payload.message   
+//   const status = response.Payload.status
+//   console.log(message,"messsage")
+// }
 
 
   return (
@@ -53,7 +83,7 @@ const Phone = () => {
 
         <div>
           <div>
-            <form onClick={handlePhoneNum}>
+            <form >
               <div className="mb-4  d-flex justify-content-center">
                 <Input
                   type="tel"
@@ -61,12 +91,13 @@ const Phone = () => {
                   className="form-control shadow-on-hover w-25"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  required
                 />
               </div>
     
 
               <div className="d-grid gap-2 mb-4  d-flex justify-content-center">
-                <button className=" loginBtn w-25" type="button">
+                <button className=" loginBtn w-25" type="button" onClick={handlePhoneNum}>
                   Send OTP
                 </button>
               </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Row,
@@ -10,7 +10,17 @@ import {
   Label,
 } from "reactstrap";
 import "./register.css";
+import { useDispatch, useSelector } from "react-redux";
+import { registerClg } from "../../../redux-toolkit/UserSlice";
 const Register = () => {
+  const dispatch = useDispatch()
+  const { user,loading, error } = useSelector((state) => state.user);
+console.log(user)
+
+useEffect(()=>{
+  dispatch(registerClg())
+},[dispatch])
+
   return (
     <>
       <div className="fw-bold fs-3 text-center my-3">Login</div>
@@ -68,6 +78,7 @@ const Register = () => {
             </FormGroup>
           </Col>
         </Row>
+        
         <Row>
           <Col lg={6}>
             <FormGroup>
