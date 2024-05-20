@@ -13,39 +13,38 @@ import {
 } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux-toolkit/ProfileSlice";
-
+import Swal from 'sweetalert2';
 const Header = (args) => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
+ 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
-const handleLogout =async (e) =>{
-  e.preventDefault()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async (e) => {
+    e.preventDefault();
   
-
-  try {
-   
-
-    const response = await dispatch(logout());
-
-    console.log(response);
-    // const status = response.payload.profile
-    // if(status){
-    //   Swal.fire({
-    //     title: "Success!",
-    //     text: `login Successful`,
-    //     icon: "success"
-    //   });
-      // navigate('user/dashboard')
+    try {
+      const response = await dispatch(logout()).unwrap(); // Use unwrap to handle the fulfilled value directly
+      console.log(response, "Logout response");
       
-      
-    // }
-  } catch (error) {
-    console.log(error);
-  }
-  
-}
+      // If the logout is successful, you can show a success message and navigate
+      Swal.fire({
+        title: "Success!",
+        text: "Logout Successful",
+        icon: "success"
+      });
+      localStorage.removeItem('token')
+      // navigate("/auth/login"); // Navigate to login page or other appropriate route
+    } catch (error) {
+      console.log(error, "Logout error");
+      Swal.fire({
+        title: "Error!",
+        text: "Logout Failed!",
+        icon: "error"
+      });
+    }
+  };
   return (
     <Navbar {...args} expand="lg" fixed="top" className="bg-white " container>
       <Link to="/" className="navbar-brand ">

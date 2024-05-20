@@ -3,16 +3,16 @@ import Swal from "sweetalert2";
 
 
 const baseURL = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 baseURL.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      config.headers["Authorization"] = `${token}`;
+      config.headers["Authorization"] = `Bearer ${token}`;
     }
-    
+
     return config;
   },
   (error) => {
@@ -31,9 +31,9 @@ baseURL.interceptors.response.use(
         error.response.status === 498 ||
         error.response.status === 404)
     ) {
-    //   const errorMessage = error.response.data.message;
+      //   const errorMessage = error.response.data.message;
 
-    
+
     }
     return Promise.reject(error);
   }
