@@ -9,16 +9,14 @@ const SubscriptionPage = () => {
     <>
       <HeaderForPages />
 
+      <div className="fw-bold fs-4 text-center">Subscriptions</div>
+
       <Container>
         <ArrowLeft size={40} strokeWidth={3} absoluteStrokeWidth />
-        <span>Subscriptions</span>
+        <span>Back</span>
       </Container>
 
       <div className="d-flex flex-wrap justify-content-evenly mt-3">
-        <Subscription />
-
-        <Subscription />
-        <Subscription />
         <Subscription />
       </div>
     </>

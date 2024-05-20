@@ -12,16 +12,16 @@ import Statistics from "../pages/usersite/Statistics/statistics";
 
 const ProtectedRoute = [
   { path: `*`, element: <Navigate to="/user/dashboard" replace /> },
-  { path: `user/dashboard`, element: <Dashboard /> },
-  { path: `user/home`, element: <HomePage /> },
-  { path: `user/sub`, element: <SubscriptionPage /> },
-  { path: `user/Streaks`, element: <Streaks /> },
-  { path: `user/setting`, element: <Setting /> },
-  { path: `user/contact`, element: <ContactUs /> },
-  { path: `user/about`, element: <AboutUs /> },
-  { path: `user/faqs`, element: <FAQs /> },
-  { path: `user/profile`, element: <UserProfile /> },
-  { path: `user/statistics`, element: <Statistics /> },
+  { path: `/user/dashboard`, element: <Dashboard /> },
+  { path: `/user/home`, element: <HomePage /> },
+  { path: `/user/sub`, element: <SubscriptionPage /> },
+  { path: `/user/Streaks`, element: <Streaks /> },
+  { path: `/user/setting`, element: <Setting /> },
+  { path: `/user/contact`, element: <ContactUs /> },
+  { path: `/user/about`, element: <AboutUs /> },
+  { path: `/user/faqs`, element: <FAQs /> },
+  { path: `/user/profile`, element: <UserProfile/> },
+  { path: `/user/statistics`, element: <Statistics /> },
 ];
 
 export default ProtectedRoute;

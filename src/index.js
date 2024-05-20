@@ -14,6 +14,7 @@ import store from "./store";
 
 const Root = () => {
   const isAuth = useAuth();
+  console.log(isAuth);
   return (
     <Provider store={store}>
       <BrowserRouter>
