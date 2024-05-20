@@ -9,6 +9,7 @@ import AboutUs from "../pages/usersite/AboutUs/AboutUs";
 import FAQs from "../pages/usersite/FAQ/FAQ";
 import UserProfile from "../pages/usersite/UserProfile/UserProfile";
 import Statistics from "../pages/usersite/Statistics/statistics";
+import SubPlans from "../pages/usersite/subPlans/subPlans";
 
 const ProtectedRoute = [
   { path: `*`, element: <Navigate to="/user/dashboard" replace /> },
@@ -22,6 +23,7 @@ const ProtectedRoute = [
   { path: `/user/faqs`, element: <FAQs /> },
   { path: `/user/profile`, element: <UserProfile/> },
   { path: `/user/statistics`, element: <Statistics /> },
+  {path: `/user/sub/plan/:id`, element: <SubPlans />}
 ];
 
 export default ProtectedRoute;
