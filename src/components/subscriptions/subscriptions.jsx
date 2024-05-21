@@ -40,7 +40,8 @@ const Subscription = ({ subData, disabled }) => {
             className={`btnBuy mt-3 ${disabled ? "disabled" : ""}`} 
             disabled={disabled}
           >
-            BUY
+            {disabled ? "Already Buy" : "Buy"}
+      
           </button>
           </div>
 
