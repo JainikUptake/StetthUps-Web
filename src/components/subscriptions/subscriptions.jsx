@@ -4,6 +4,7 @@ import "./subscriptions.css";
 import { useNavigate } from "react-router-dom";
 
 const Subscription = ({ subData, disabled }) => {
+  console.log(disabled)
   const navigate = useNavigate();
 
   const handlePlan = (id) => {
@@ -36,7 +37,7 @@ const Subscription = ({ subData, disabled }) => {
         <button 
             type="button" 
             onClick={() => handlePlanBuy(subData.id)} 
-            className="btnBuy mt-3 " 
+            className={`btnBuy mt-3 ${disabled ? "disabled" : ""}`} 
             disabled={disabled}
           >
             BUY

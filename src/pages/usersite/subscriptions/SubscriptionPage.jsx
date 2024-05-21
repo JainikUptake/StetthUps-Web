@@ -27,7 +27,8 @@ const SubscriptionPage = () => {
 
   // Helper function to check if a plan is in the user's subscription plans
   const isInUserPlans = (plan) => {
-    return subscriptionPlanByUser?.some(userPlan => userPlan.id === plan.id);
+    console.log(plan)
+    return subscriptionPlanByUser?.some(userPlan => userPlan.subscription_id === plan.id);
   };
 
   return (
