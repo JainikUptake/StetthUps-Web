@@ -11,6 +11,7 @@ const Email = () => {
 
   const { loading, error } = useSelector((state) => state.user);
 
+  console.log(loading , error)
   //state
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,20 +44,26 @@ const Email = () => {
       console.log(userCredential);
       const response = await dispatch(loginUser(userCredential));
 
-      console.log(response);
+      console.log(response , "response");
       const status = response.payload.user
+      console.log(status, "status")
     if(status){
       Swal.fire({
         title: "Success!",
         text: `login Successful`,
         icon: "success"
       });
+      // window.location.reload()
       navigate('user/dashboard')
       
       
     }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: `Error Login`,
+      });
     }
   };
 

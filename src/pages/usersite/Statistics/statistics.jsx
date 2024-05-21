@@ -3,7 +3,7 @@ import "./statistics.css";
 
 import { Col, Row, Container } from "reactstrap";
 import { ChevronLeftSquare } from "lucide-react";
-import { Pie, PieChart, ResponsiveContainer } from "recharts";
+
 
 const data01 = [
   { name: "Group A", value: 400 },
@@ -67,13 +67,13 @@ const Statistics = () => {
             <div className="fs-3 mt-4 fw-bold">Your Score</div>
             <div className="fs-5 text-muted">
               Total Attempted :{" "}
-              <span className=" fs-5 fw-bold hwdhw">1998 </span>
+              <span className=" fs-5 fw-bold statisticsValue  p-2">1998 </span>
             </div>
             <div className="fs-5 text-muted my-3">
-              Total Correct : <span className=" fs-5 fw-bold hwdhw">1800 </span>
+              Total Correct : <span className=" fs-5 fw-bold statisticsValue totalStatisticsValue p-1 ">1800 </span>
             </div>
             <div className="fs-5 text-muted">
-              Total Incorrect : <span className="fs-5 fw-bold hwdhw">98 </span>
+              Total Incorrect : <span className="fs-5 fw-bold statisticsValue p-1">98 </span>
             </div>
 
             {/* <div className="d-flex align-items-center mt-3">

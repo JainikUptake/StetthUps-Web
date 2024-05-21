@@ -8,7 +8,7 @@ const API_LOGIN = process.env.REACT_APP_API_URL;
 
 const initialState =  {
   loading: false,
-  token:localStorage.getItem("token"),
+  token: localStorage.getItem("token") || null,
   user: null,
   error: null,
 }
@@ -69,6 +69,7 @@ export const loginUser = createAsyncThunk(
       return response.data.data
     } catch (error) {
       console.log(error, "error here");
+      throw error
     }
   }
 );
@@ -119,6 +120,7 @@ const userSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
+        console.log("something here ----")
         console.log(action.error.message);
         if (action.error.message === "request failed ") {
           state.error = "access denied";

@@ -10,10 +10,14 @@ import FAQs from "../pages/usersite/FAQ/FAQ";
 import UserProfile from "../pages/usersite/UserProfile/UserProfile";
 import Statistics from "../pages/usersite/Statistics/statistics";
 import SubPlans from "../pages/usersite/subPlans/subPlans";
+import Play from "../pages/usersite/Play/play";
+import Download from "../pages/usersite/Download/download";
 
 const ProtectedRoute = [
   { path: `*`, element: <Navigate to="/user/dashboard" replace /> },
   { path: `/user/dashboard`, element: <Dashboard /> },
+  { path: `/user/play`, element: <Play /> },
+  { path: `/user/download`, element: <Download /> },
   { path: `/user/home`, element: <HomePage /> },
   { path: `/user/sub`, element: <SubscriptionPage /> },
   { path: `/user/Streaks`, element: <Streaks /> },

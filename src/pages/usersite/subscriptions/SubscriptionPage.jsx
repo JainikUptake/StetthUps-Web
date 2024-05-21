@@ -1,42 +1,50 @@
 import React, { useEffect } from "react";
 import Subscription from "../../../components/subscriptions/subscriptions";
-import { ArrowLeft } from "lucide-react";
-import { Container } from "reactstrap";
-import HeaderForPages from "../../headerForPages/headerForPages";
 import { useDispatch, useSelector } from "react-redux";
-import { SubscriptionPlan } from "../../../redux-toolkit/subscriptionsSlice";
+import { SubscriptionPlan, SubscriptionPlanByUser } from "../../../redux-toolkit/subscriptionsSlice";
+import Header from "../../../components/usersite/header/header";
+import './subscription.css';
 
 const SubscriptionPage = () => {
-  const dispatch = useDispatch()
-  const {subscriptionPlans , loading , error } = useSelector((state)=>state.subscriptionPlan)
-console.log(subscriptionPlans,"---paln in page")
-  useEffect(()=>{
-    dispatch(SubscriptionPlan())
-  },[dispatch])
+  const dispatch = useDispatch();
   
+  // Fetch subscription plans and user-specific subscription plans
+  const { subscriptionPlans, loading: loadingPlans, error: errorPlans } = useSelector((state) => state.subscriptionPlan);
+  const { subscriptionPlanByUser, loading: loadingUserPlans, error: errorUserPlans } = useSelector((state) => state.subscriptionPlanByUser);
+  
+  // Fetch all subscription plans
+  useEffect(() => {
+    dispatch(SubscriptionPlan());
+  }, [dispatch]);
+
+  // Fetch subscription plans by user
+  useEffect(() => {
+    dispatch(SubscriptionPlanByUser());
+  }, [dispatch]);
+
+  console.log(subscriptionPlans, "---plans in page");
+  console.log(subscriptionPlanByUser, "---sub plan user api data");
+
+  // Helper function to check if a plan is in the user's subscription plans
+  const isInUserPlans = (plan) => {
+    return subscriptionPlanByUser?.some(userPlan => userPlan.id === plan.id);
+  };
 
   return (
-    <>
-      <HeaderForPages />
-
-      <div className="fw-bold fs-4 text-center">Subscriptions</div>
-
-      <Container>
-        <ArrowLeft size={40} strokeWidth={3} absoluteStrokeWidth />
-        <span>Back</span>
-      </Container>
-
-      <div className="d-flex flex-wrap justify-content-evenly mt-3">
-        {
-          subscriptionPlans?.map((getAllPlans,index)=>(
-            <Subscription subData={getAllPlans} key={index} />
-          ))
-        }
-
-
-      
+    <div className="bgImg vh-100">
+      <Header />
+      <div className="dash-container">
+        <div className="dash-card">
+          {subscriptionPlans?.map((plan, index) => (
+            <Subscription 
+              subData={plan} 
+              key={index} 
+              disabled={isInUserPlans(plan)} 
+            />
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -10px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 .btnStart{
-    background-color: rgb(63, 171, 254);
+    background-color: black;
     border-radius: 8px;
     color: white;
     border: none;
@@ -11,3 +11,29 @@
     width: auto;
     padding: 10px;
 }   
+.btnBuy{
+    background-color: rgb(128, 0, 118);
+    border-radius: 8px;
+    color: white;
+    border: none;
+    height: auto;
+    width: auto;
+    padding: 10px;
+
+}
+
+/* File: ./subscriptions.css */
+
+.card.disabled {
+    opacity: 0.9;
+
+  }
+  
+.btnBuy:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    background-color: #ccc;  
+    border-color: #ccc; 
+    color: #ab2626; 
+  }
+  

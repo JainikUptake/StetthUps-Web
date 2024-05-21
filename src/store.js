@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./redux-toolkit/UserSlice";
 import ProfileSlice from "./redux-toolkit/ProfileSlice";
-import subscriptionsSlice from "./redux-toolkit/subscriptionsSlice";
+import { subscriptionPlanByIdReducer, subscriptionPlanByUserReducer, subscriptionPlanReducer } from "./redux-toolkit/subscriptionsSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
     userDetails:ProfileSlice,
-    subscriptionPlan : subscriptionsSlice,
+    subscriptionPlan : subscriptionPlanReducer,
+    subscriptionPlanById : subscriptionPlanByIdReducer,
+    subscriptionPlanByUser: subscriptionPlanByUserReducer
   },
 });
 export default store;
