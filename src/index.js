@@ -12,6 +12,7 @@ import useAuth from "./hooks/useAuth";
 import { Provider } from "react-redux";
 import store from "./store";
 
+
 const Root = () => {
   const isAuth = useAuth()
   return (

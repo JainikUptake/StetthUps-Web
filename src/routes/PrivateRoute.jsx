@@ -16,3 +16,4 @@ const PrivateRoute = [
   // { path: `auth/register/verify`, element: <Verify /> },
 ];
 export default PrivateRoute;
+
