@@ -12,6 +12,7 @@ import Statistics from "../pages/usersite/Statistics/statistics";
 import SubPlans from "../pages/usersite/subPlans/subPlans";
 import Play from "../pages/usersite/Play/play";
 import Download from "../pages/usersite/Download/download";
+import Feedback from "../pages/usersite/feedback/feedback";
 
 const ProtectedRoute = [
   { path: `*`, element: <Navigate to="/user/dashboard" replace /> },
@@ -21,6 +22,8 @@ const ProtectedRoute = [
   { path: `/user/home`, element: <HomePage /> },
   { path: `/user/sub`, element: <SubscriptionPage /> },
   { path: `/user/Streaks`, element: <Streaks /> },
+  { path: `/user/feedback`, element: <Feedback/> },
+
   { path: `/user/setting`, element: <Setting /> },
   { path: `/user/contact`, element: <ContactUs /> },
   { path: `/user/about`, element: <AboutUs /> },
