@@ -13,9 +13,41 @@
 }
 
 .custom-button {
-    background-color: black;
+    background-color: #6739B7;
     border-radius: 30px;
     letter-spacing: 0.2em;
     height: auto;
-    padding: 0 5px 0 5px;
+    padding: 10px 25px 10px 25px;
 }
+
+
+
+  /* Card styling */
+  .streaks-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+  }
+
+  /* .feedback-card form{
+    display: flex;
+    flex-direction: column;
+  }
+   */
+  /* Individual card item styling */
+  .card-item {
+    background-color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  
+  .card-item:hover {
+    transform: translateY(-10px);
+  }
+  
