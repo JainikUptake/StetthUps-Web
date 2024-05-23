@@ -5,3 +5,16 @@
     padding: 30px;
     text-align: center;
   }
+  .casevideo-video{
+    height: 200px;
+    object-fit: contain;
+    object-position: cover;
+
+  }
+
+  .casevideo-img{
+    height: 200px;
+    object-fit: contain;
+    object-position: cover;
+
+  }

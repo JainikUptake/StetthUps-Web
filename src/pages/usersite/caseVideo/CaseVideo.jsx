@@ -24,6 +24,9 @@ const CaseVideo = () => {
       <Header />
       <div className="dash-container">
         <div className="CaseVideo-card">
+          
+          <video src={getCaseByCaseId?.case_files} controls className='casevideo-video'></video>
+          <img src={getCaseByCaseId?.case_files} className='casevideo-img' alt="not found" />
           {/* <div className="fs-4 fw-bold"> Select case </div> */}
         </div>
         </div>
