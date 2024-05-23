@@ -18,7 +18,10 @@ import Download from '../pages/usersite/Download/download';
 import Feedback from '../pages/usersite/feedback/feedback';
 import PaymentForm from '../components/checkout/checkOutForm';
 import CheckoutForm from '../components/checkout/checkOutForm';
-// import "../App.css"
+import Topic from '../pages/usersite/topic/topic';
+import Subject from '../pages/usersite/subject/subject';
+import Case from '../pages/usersite/case/case';
+import CaseVideo from '../pages/usersite/caseVideo/CaseVideo';
 
 
 
@@ -42,13 +45,21 @@ const ProtectedRoute = [
   { path: '/user/about', element: <AboutUs /> },
   { path: '/user/faqs', element: <FAQs /> },
   { path: '/user/payment', element: (
-    <Elements stripe={stripePromise}>
+    <Elements stripe={stripePromise} >
       <CheckoutForm />
     </Elements>
   ) },
   { path: '/user/profile', element: <UserProfile /> },
   { path: '/user/statistics', element: <Statistics /> },
-  { path: '/user/sub/plan/:id', element: <SubPlans /> }
+  { path: '/user/sub/plan/:id', element: <SubPlans /> },
+  { path: '/user/case/:id', element: <Case /> },
+  { path: '/user/case/video/:id', element: <CaseVideo /> },
+
+  { path: '/user/subject', element: <Subject /> },
+
+  { path: '/user/topic/:id', element: <Topic /> },
+
+
 ];
 
 export default ProtectedRoute;
