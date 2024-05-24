@@ -27,9 +27,6 @@ const CaseQuiz = () => {
     console.log("Quiz finished");
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
   const currentQuestion = getQuizByCaseId?.question
   console.log(currentQuestion,"---current question")
 
@@ -38,7 +35,7 @@ const CaseQuiz = () => {
       <Header />
       <div className="dash-container">
         <div className="CaseQuiz-card">
-          {currentQuestion ? (
+          {/* {currentQuestion ? (
             <div>
               <h2>{currentQuestion.question}</h2>
               <ul>
@@ -55,7 +52,8 @@ const CaseQuiz = () => {
           ) : (
             <div>No questions available.</div>
           )}
-        </div>
+        </div> */}
+      </div>
       </div>
     </div>
   );
