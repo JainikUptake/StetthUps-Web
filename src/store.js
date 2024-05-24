@@ -9,6 +9,7 @@ import {  getSubjectSliceReducer } from "./redux-toolkit/subjectSlice";
 import { getTopicBySubjectIdSliceReducer } from "./redux-toolkit/topicSlice";
 import { getCaseByTopicIdSliceReducer } from "./redux-toolkit/caseSlice";
 import { getCaseByCaseIdSliceReducer } from "./redux-toolkit/getCaseSlice";
+import { getQuizByCaseIdSliceReducer } from "./redux-toolkit/caseQuizSlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -23,7 +24,8 @@ const store = configureStore({
     getSubject:getSubjectSliceReducer,
     getTopicBySubject:getTopicBySubjectIdSliceReducer,
     getCaseByTopic:getCaseByTopicIdSliceReducer,
-    getCaseByCaseId:getCaseByCaseIdSliceReducer
+    getCaseByCaseId:getCaseByCaseIdSliceReducer,
+    getQuizByCaseId:getQuizByCaseIdSliceReducer
   
   },
 });

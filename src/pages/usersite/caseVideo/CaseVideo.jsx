@@ -23,7 +23,7 @@ const CaseVideo = () => {
   const lastchancenot = lastFile?.split(".").pop();
   console.log(JSON.stringify(lastchancenot));
 
-  const file = (lastchancenot)?.toLowerCase();
+  const file = lastchancenot?.toLowerCase();
 
   return (
     <>
@@ -33,7 +33,7 @@ const CaseVideo = () => {
           <div className="CaseVideo-card">
             <h1>{file}</h1>
 
-            {file == "png"  ? (
+            {file == "png" ? (
               <img
                 src={getCaseByCaseId?.case_files}
                 className="casevideo-img"
