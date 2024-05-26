@@ -6,30 +6,24 @@ const API_LOGIN = process.env.REACT_APP_API_URL;
 
 // declare initialState here
 
-const initialState =  {
+const initialState = {
   loading: false,
   token: localStorage.getItem("token") || null,
   user: null,
   error: null,
-}
+};
 
+// register fill collage
 
-// register fill collage 
-
-export const registerClg = createAsyncThunk(
-  "user/getAllColleges",
-  async () => {
-    try {
-      const response = await axios.get(
-        `${API_LOGIN}/v1/get/colleges`
-      );
-      console.log(response, "main");
-      return response
-    } catch (error) {
-      console.log(error, "error here");
-    }
+export const registerClg = createAsyncThunk("user/getAllColleges", async () => {
+  try {
+    const response = await axios.get(`${API_LOGIN}/v1/get/colleges`);
+    console.log(response, "main");
+    return response;
+  } catch (error) {
+    console.log(error, "error here");
   }
-);
+});
 
 // register verify User
 export const verifyUser = createAsyncThunk(
@@ -38,22 +32,16 @@ export const verifyUser = createAsyncThunk(
     try {
       // console.log()
       const response = await axios.post(
-        `${API_LOGIN}/v1/verify/otp`,userCredentials
+        `${API_LOGIN}/v1/verify/otp`,
+        userCredentials
       );
       console.log(response.data.data.access_token, "main");
-      return response.data.data
+      return response.data.data;
     } catch (error) {
       console.log(error, "error here");
     }
   }
 );
-
-
-
-
-
-
-
 
 //  login user
 
@@ -66,33 +54,29 @@ export const loginUser = createAsyncThunk(
         userCredential
       );
       console.log(response.data.data, "main");
-      return response.data.data
+      return response.data.data;
     } catch (error) {
       console.log(error, "error here");
-      throw error
+      throw error;
     }
   }
 );
 
-//  login with phonenumber 
-
+//  login with phonenumber
 
 export const loginWithPhone = createAsyncThunk(
   "user/loginWithPhone",
-  async ({userPhone}) => {
-    console.log(userPhone, " in block")
+  async ({ userPhone }) => {
+    console.log(userPhone, " in block");
 
     try {
-      console.log(userPhone, " in block")
-      const response = await axios.post(
-        `${API_LOGIN}/v1/send/otp`,
-        userPhone
-      );
+      console.log(userPhone, " in block");
+      const response = await axios.post(`${API_LOGIN}/v1/send/otp`, userPhone);
       console.log(response, "main");
-      return response
+      return response;
     } catch (error) {
       console.log(error, "------------------error here");
-      throw error
+      throw error;
     }
   }
 );
@@ -102,7 +86,7 @@ export const loginWithPhone = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
- 
+
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
@@ -113,14 +97,14 @@ const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload;
-        console.log(state.token.access_token,"tokennnnnnnnnnnn")
-        localStorage.setItem("token",state.token.access_token)
+        console.log(state.token.access_token, "tokennnnnnnnnnnn");
+        localStorage.setItem("token", state.token.access_token);
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
-        console.log("something here ----")
+        console.log("something here ----");
         console.log(action.error.message);
         if (action.error.message === "request failed ") {
           state.error = "access denied";
@@ -129,11 +113,9 @@ const userSlice = createSlice({
         }
       });
 
+    // login with number
 
-
-      // login with number
-
-      builder
+    builder
       .addCase(loginWithPhone.pending, (state) => {
         state.loading = true;
         state.user = null;
@@ -148,13 +130,12 @@ const userSlice = createSlice({
         state.loading = false;
         state.user = null;
         state.error = action.error.message;
-        console.log(state.error , "rtk error here<<<<<<<<<<<<<<<<<<")
-
+        console.log(state.error, "rtk error here<<<<<<<<<<<<<<<<<<");
       });
 
-      // register Clg
+    // register Clg
 
-      builder
+    builder
       .addCase(registerClg.pending, (state) => {
         state.loading = true;
         // state.user = null;
@@ -169,12 +150,11 @@ const userSlice = createSlice({
         state.loading = false;
         // state.user = null;
         state.error = action.error.message;
-
       });
 
-      // verify user
+    // verify user
 
-      builder
+    builder
       .addCase(verifyUser.pending, (state) => {
         state.loading = true;
         state.user = null;
@@ -183,18 +163,15 @@ const userSlice = createSlice({
       .addCase(verifyUser.fulfilled, (state, action) => {
         state.loading = false;
         state.token = action.payload;
-        console.log(state.token.access_token,"tokennnnnnnnnnnn")
-        localStorage.setItem("token",state.token.access_token)
+        console.log(state.token.access_token, "tokennnnnnnnnnnn");
+        localStorage.setItem("token", state.token.access_token);
         state.error = null;
       })
       .addCase(verifyUser.rejected, (state, action) => {
         state.loading = false;
         state.user = null;
         state.error = action.error.message;
-
       });
-
-
   },
 });
 

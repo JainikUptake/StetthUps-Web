@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./FAQ.css";
 import HeaderForPages from "../../headerForPages/headerForPages";
 import {
@@ -17,10 +17,12 @@ const FAQs = () => {
   const { faqs, loading, error } = useSelector((state) => state.faqs);
   console.log(faqs, "faqs into jsx");
 
-  // Fetch all subscription plans
   useEffect(() => {
     dispatch(userQuestion());
   }, [dispatch]);
+
+  // State to control open/close state of each accordion item
+  const [openAccordion, setOpenAccordion] = useState(null);
 
   return (
     <>
@@ -28,19 +30,25 @@ const FAQs = () => {
         <Header />
         <div className="dash-container">
           <div className="faqs-card">
-            {faqs?.map((allQuestion, i) => (
-              <>
-                <UncontrolledAccordion defaultOpen="1" className="">
-                  <AccordionItem>
-                    <AccordionHeader targetId="1">
-                      <span className="fw-bold">{allQuestion.question}</span>
-                    </AccordionHeader>
-                    <AccordionBody accordionId="1">
-                      {allQuestion.answer}
-                    </AccordionBody>
-                  </AccordionItem>
-                </UncontrolledAccordion>
-              </>
+            {faqs?.map((faq, index) => (
+              <UncontrolledAccordion
+                key={index}
+                defaultOpen={openAccordion === index}
+              >
+                <AccordionItem>
+                  <AccordionHeader
+                    targetId={`accordion-${index}`}
+                    onClick={() =>
+                      setOpenAccordion(openAccordion === index ? null : index)
+                    }
+                  >
+                    <span className="fw-bold">{faq.question}</span>
+                  </AccordionHeader>
+                  <AccordionBody accordionId={`accordion-${index}`}>
+                    {faq.answer}
+                  </AccordionBody>
+                </AccordionItem>
+              </UncontrolledAccordion>
             ))}
           </div>
         </div>
