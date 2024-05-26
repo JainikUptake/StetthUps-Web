@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./play.css";
 import Header from "../../../components/usersite/header/header";
-import { Button } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   SubscriptionPlan,
   SubscriptionPlanByUser,
 } from "../../../redux-toolkit/subscriptionsSlice";
 import { useNavigate } from "react-router-dom";
+import { Spinner, Alert } from "reactstrap";
 
 const Play = () => {
   const dispatch = useDispatch();
-  const navigate  = useNavigate()
+  const navigate = useNavigate();
 
-  // Fetch subscription plans and user-specific subscription plans
+  const [loading, setLoading] = useState(true);
+
   const {
     subscriptionPlans,
     loading: loadingPlans,
@@ -25,48 +26,54 @@ const Play = () => {
     error: errorUserPlans,
   } = useSelector((state) => state.subscriptionPlanByUser);
 
-  // Fetch all subscription plans
   useEffect(() => {
-    dispatch(SubscriptionPlan());
-  }, [dispatch]);
+    const fetchData = async () => {
+      setLoading(true);
+      await dispatch(SubscriptionPlan());
+      await dispatch(SubscriptionPlanByUser());
+      setLoading(false);
+    };
 
-  // Fetch subscription plans by user
-  useEffect(() => {
-    dispatch(SubscriptionPlanByUser());
+    fetchData();
   }, [dispatch]);
-
-  console.log(subscriptionPlans, "---plans in page");
-  console.log(subscriptionPlanByUser, "---sub plan user api data");
 
   const isInUserPlans = (plan) => {
-    console.log(plan, "only plan");
     return subscriptionPlanByUser?.some(
       (userPlan) => userPlan.subscription_id === plan.id
     );
   };
 
-  // redirect to subject page
-  const handlePlaybtn =  () =>{
-    navigate("/user/subject")   
-
-  }
+  const handlePlaybtn = () => {
+    navigate("/user/subject");
+  };
 
   return (
-    <>
-      <div className="bgImg vh-100">
-        <Header />
-        <div className="dash-container">
+    <div className="bgImg vh-100">
+      <Header />
+      <div className="dash-container">
+        {loading ? (
+          <div className="d-flex justify-content-center align-items-center loader-container">
+            <Spinner color="primary" />
+          </div>
+        ) : errorPlans || errorUserPlans ? (
+          <Alert color="danger">{errorPlans || errorUserPlans}</Alert>
+        ) : (
           <div className="play-card">
-            <div className="fs-4 fw-bold">Select Pack</div>
+            <div className="fs-4 fw-bold mb-3">Select Pack</div>
             <div className="plays-card">
               <ul className="list-group">
                 {subscriptionPlans?.map((plan, index) => (
-                  <li key={index} className="list-group-item">
-                    <span>{plan.subscription_name}</span>{" "}
+                  <li
+                    key={index}
+                    className="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <span>{plan.subscription_name}</span>
                     <button
                       type="button"
                       onClick={handlePlaybtn}
-                      className={`btn btn-outline-primary buttonPlay ${!isInUserPlans(plan) ? "disabled" : ""}`}
+                      className={`btn btn-outline-primary buttonPlay ${
+                        !isInUserPlans(plan) ? "disabled" : ""
+                      }`}
                       disabled={!isInUserPlans(plan)}
                     >
                       {isInUserPlans(plan) ? "Play" : "Buy"}
@@ -76,9 +83,9 @@ const Play = () => {
               </ul>
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </>
+    </div>
   );
 };
 

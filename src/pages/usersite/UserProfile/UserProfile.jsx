@@ -1,69 +1,56 @@
-import React, { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./UserProfile.css";
 import { ChevronLeftSquare } from "lucide-react";
 import { Button, Col, Container, FormGroup, Input, Row } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { userProfile,userProfileChangePassword } from "../../../redux-toolkit/ProfileSlice";
-import Swal from 'sweetalert2';
-
+import {
+  userProfile,
+  userProfileChangePassword,
+} from "../../../redux-toolkit/profileSlice";
+import Swal from "sweetalert2";
 
 const UserProfile = () => {
-  const [oldpassword, setOldpassword] = useState("")
-  const [newPassword, setnewPassword] = useState("")
-  
-  const dispatch = useDispatch()
-  const {profile} = useSelector((state)=>state.userDetails)
+  const [oldpassword, setOldpassword] = useState("");
+  const [newPassword, setnewPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.userDetails);
   // console.log(profile,"-----userrrprofile")
 
-  useEffect(()=>{
-    dispatch(userProfile())
-  },[])
-  
-  const handleChangePass = async (e) =>{
+  useEffect(() => {
+    dispatch(userProfile());
+  }, []);
+
+  const handleChangePass = async (e) => {
     e.preventDefault();
     try {
       // console.log(oldpassword,newPassword ,"passwords")
       const password = {
-        old_password:oldpassword,
-        new_password:newPassword,
-      }
+        old_password: oldpassword,
+        new_password: newPassword,
+      };
 
       const response = await dispatch(userProfileChangePassword(password));
 
-      console.log(response,"timepassssssssssss");
+      console.log(response, "timepassssssssssss");
       // console.log(password);
 
-      if(response.payload.status==200){
+      if (response.payload.status == 200) {
         Swal.fire({
           title: "Success!",
           text: `change password Successful`,
-          icon: "success"
+          icon: "success",
         });
-
       }
-
-      
     } catch (error) {
       // console.log(error,"error in show-------")
       Swal.fire({
         title: "failed!",
         text: `something went wrong`,
-        icon: "error"
+        icon: "error",
       });
-
-
-
-
-      
     }
-
-
-  }
-
-
-
-
-
+  };
 
   return (
     <>
@@ -110,19 +97,15 @@ const UserProfile = () => {
             <div className="d-flex align-items-center mt-3">
               <span className="fw-bold fs-5">D.O.B : </span>
               <div className="ms-3 fs-5"> {profile?.birth_date}</div>
-             
             </div>
             {/* current year */}
-             <div className="d-flex align-items-center mt-3">
+            <div className="d-flex align-items-center mt-3">
               <span className="fw-bold fs-5">current_year : </span>
               <div className="ms-3 fs-5"> {profile?.current_year}</div>
-             
             </div>
-
             <div className="d-flex align-items-center mt-3">
               <span className="fw-bold fs-5">preparing_for : </span>
               <div className="ms-3 fs-5"> {profile?.preparing_for}</div>
-             
             </div>
             <div className="fw-bold fs-5 mt-4">Purchased Subscription </div>
             <div className="mt-4">
@@ -136,7 +119,7 @@ const UserProfile = () => {
             <div className="fw-bold mt-3 fs-4">Old Password</div>
             <FormGroup>
               <Input
-               onChange={(e) => setOldpassword(e.target.value)}
+                onChange={(e) => setOldpassword(e.target.value)}
                 id="examplePasswordd"
                 className="mt-2 bg-secondary"
                 name="password"
@@ -147,7 +130,7 @@ const UserProfile = () => {
             <div className="fw-bold mt-3 fs-4">New Password</div>
             <FormGroup>
               <Input
-               onChange={(e) => setnewPassword(e.target.value)}
+                onChange={(e) => setnewPassword(e.target.value)}
                 id="examplePassword"
                 className="mt-2 bg-secondary"
                 name="password"
@@ -157,7 +140,12 @@ const UserProfile = () => {
             </FormGroup>
             <div className="d-flex justify-content-evenly my-3">
               <Button className="w-25 userProfileBtn">Cancel</Button>
-              <Button  className="w-25 userProfileBtn" onClick={handleChangePass}>Save</Button>
+              <Button
+                className="w-25 userProfileBtn"
+                onClick={handleChangePass}
+              >
+                Save
+              </Button>
             </div>
           </Col>
           <Col>
@@ -173,8 +161,6 @@ const UserProfile = () => {
             </div>
 
             {/*  */}
-
-            
           </Col>
         </Row>
       </Container>

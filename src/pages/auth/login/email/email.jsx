@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "./email.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../../../redux-toolkit/UserSlice";
+import { loginUser } from "../../../../redux-toolkit/userSlice";
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 // import { loginUser } from "../../../../redux-toolkit/UserSlice";
 const Email = () => {
   //redux state
 
   const { loading, error } = useSelector((state) => state.user);
 
-  console.log(loading , error)
+  console.log(loading, error);
   //state
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,26 +38,24 @@ const Email = () => {
     e.preventDefault();
     try {
       const userCredential = {
-        email:userEmail,
+        email: userEmail,
         password,
       };
       console.log(userCredential);
       const response = await dispatch(loginUser(userCredential));
 
-      console.log(response , "response");
-      const status = response.payload.user
-      console.log(status, "status")
-    if(status){
-      Swal.fire({
-        title: "Success!",
-        text: `login Successful`,
-        icon: "success"
-      });
-      // window.location.reload()
-      navigate('user/dashboard')
-      
-      
-    }
+      console.log(response, "response");
+      const status = response.payload.user;
+      console.log(status, "status");
+      if (status) {
+        Swal.fire({
+          title: "Success!",
+          text: `login Successful`,
+          icon: "success",
+        });
+        // window.location.reload()
+        navigate("user/dashboard");
+      }
     } catch (error) {
       Swal.fire({
         icon: "error",

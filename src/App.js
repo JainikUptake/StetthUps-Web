@@ -1,17 +1,7 @@
-// import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import ProtectedRoute from './routes/ProtectedRoute';
+import React from "react";
 
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         {ProtectedRoute.map((route, index) => (
-//           <Route key={index} path={route.path} element={route.element} />
-//         ))}
-//       </Routes>
-//     </Router>
-//   );
-// };
+const App = () => {
+  return <h1>hello all</h1>;
+};
 
-// export default App;
+export default App;

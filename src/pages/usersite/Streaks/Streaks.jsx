@@ -1,32 +1,32 @@
-import { ChevronLeftSquare, Equal, Flame, HeartPulse } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "reactstrap";
 import "./Streaks.css";
 import Header from "../../../components/usersite/header/header";
 import { useDispatch, useSelector } from "react-redux";
-import { userProfile } from "../../../redux-toolkit/ProfileSlice";
+import { userProfile } from "../../../redux-toolkit/profileSlice";
 import { ClaimLifeLine, GetStreak } from "../../../redux-toolkit/streakSlice";
 import Swal from "sweetalert2";
+import { ChevronLeftSquare, Equal, Flame, HeartPulse } from "lucide-react";
 
 const Streaks = () => {
   const dispatch = useDispatch();
-
-  // useEffect(()=>{
-  //   dispatch(userProfile())
-  // },[])
+  const [loading, setLoading] = useState(true);
 
   const { profile } = useSelector((state) => state.userDetails);
-  console.log(profile, "-----streakss");
-
   const {
     getStreak,
     loading: loadingStreak,
     error: errorStreak,
   } = useSelector((state) => state.getStreak);
-  console.log(getStreak?.message, "-----ggg");
   const message = getStreak?.message;
 
   useEffect(() => {
+    dispatch(userProfile());
+    dispatch(GetStreak());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setLoading(loadingStreak);
     if (message) {
       Swal.fire({
         title: "Success!",
@@ -34,18 +34,13 @@ const Streaks = () => {
         icon: "success",
       });
     }
-  }, [message]);
+  }, [message, loadingStreak]);
 
-  useEffect(() => {
-    dispatch(userProfile());
-    dispatch(GetStreak());
-  }, []);
-  //
   const handleClaimLifeLine = async () => {
     try {
+      setLoading(true);
       const response = await dispatch(ClaimLifeLine());
-
-      console.log(response, "response");
+      setLoading(false);
       const claimMessage = response?.payload?.message;
       if (claimMessage) {
         Swal.fire({
@@ -55,6 +50,7 @@ const Streaks = () => {
         });
       }
     } catch (error) {
+      setLoading(false);
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -67,10 +63,10 @@ const Streaks = () => {
     <>
       <div className="bgImg vh-100">
         <Header />
-        <div className="dash-container">
+        <div className="streaks-container">
           <div className="streaks-card">
             <Container>
-              <div className="d-flex">
+              <div className="d-flex align-items-center">
                 <div>
                   <ChevronLeftSquare
                     size={48}
@@ -78,32 +74,26 @@ const Streaks = () => {
                     absoluteStrokeWidth
                   />
                 </div>
-
                 <div className="fs-3">Streaks</div>
               </div>
-              <Col sm={3} className="d-flex flex-column align-items-center">
+              <Col
+                sm={3}
+                className="d-flex flex-column align-items-center totalLifeLine-cards"
+              >
                 <span className="fw-bolder fs-2">Total Lifeline</span>
-
-                <div>
-                  <HeartPulse size={100} strokeWidth={0.75} />
-                  <div className="fw-bold fs-4 totalLifeLine">
-                    {profile?.lifeline}
-                  </div>
-                </div>
+                <div className="fw-bold fs-4">{profile?.lifeline}</div>
               </Col>
-              <div className="mt-5">
+              <div className="mt-3">
                 <Row>
-                  <Col sm={3}>
+                  <Col sm={4} className="text-center">
                     <span className="fw-bold score">{getStreak?.streak}</span>
-
                     <Flame size={100} strokeWidth={0.5} />
-
                     <div className="fw-bold fs-2">Streaks</div>
                   </Col>
-                  <Col sm={3}>
+                  <Col sm={4} className="text-center">
                     <Equal size={100} strokeWidth={2.25} />
                   </Col>
-                  <Col sm={3}>
+                  <Col sm={4} className="text-center">
                     <span className="fw-bold score">{getStreak?.streak}</span>
                     <HeartPulse size={100} strokeWidth={0.75} />
                     <div className="fw-bold fs-2">Lifeline</div>
@@ -111,11 +101,12 @@ const Streaks = () => {
                 </Row>
               </div>
               <Button
-                className="custom-button fs-4"
-                onClick={() => handleClaimLifeLine()}
+                className="custom-button fs-4 mt-4"
+                onClick={handleClaimLifeLine}
               >
                 Claim Life Line
               </Button>
+              {loading && <div className="loader"></div>}
             </Container>
           </div>
         </div>

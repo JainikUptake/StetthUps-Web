@@ -1,17 +1,28 @@
 import React, { useEffect } from "react";
 import Subscription from "../../../components/subscriptions/subscriptions";
 import { useDispatch, useSelector } from "react-redux";
-import { SubscriptionPlan, SubscriptionPlanByUser } from "../../../redux-toolkit/subscriptionsSlice";
+import {
+  SubscriptionPlan,
+  SubscriptionPlanByUser,
+} from "../../../redux-toolkit/subscriptionsSlice";
 import Header from "../../../components/usersite/header/header";
-import './subscription.css';
+import "./subscription.css";
 
 const SubscriptionPage = () => {
   const dispatch = useDispatch();
-  
+
   // Fetch subscription plans and user-specific subscription plans
-  const { subscriptionPlans, loading: loadingPlans, error: errorPlans } = useSelector((state) => state.subscriptionPlan);
-  const { subscriptionPlanByUser, loading: loadingUserPlans, error: errorUserPlans } = useSelector((state) => state.subscriptionPlanByUser);
-  
+  const {
+    subscriptionPlans,
+    loading: loadingPlans,
+    error: errorPlans,
+  } = useSelector((state) => state.subscriptionPlan);
+  const {
+    subscriptionPlanByUser,
+    loading: loadingUserPlans,
+    error: errorUserPlans,
+  } = useSelector((state) => state.subscriptionPlanByUser);
+
   // Fetch all subscription plans
   useEffect(() => {
     dispatch(SubscriptionPlan());
@@ -27,8 +38,10 @@ const SubscriptionPage = () => {
 
   // Helper function to check if a plan is in the user's subscription plans
   const isInUserPlans = (plan) => {
-    console.log(plan)
-    return subscriptionPlanByUser?.some(userPlan => userPlan.subscription_id === plan.id);
+    console.log(plan);
+    return subscriptionPlanByUser?.some(
+      (userPlan) => userPlan.subscription_id === plan.id
+    );
   };
 
   return (
@@ -37,10 +50,10 @@ const SubscriptionPage = () => {
       <div className="dash-container">
         <div className="dash-card">
           {subscriptionPlans?.map((plan, index) => (
-            <Subscription 
-              subData={plan} 
-              key={index} 
-              disabled={isInUserPlans(plan)} 
+            <Subscription
+              subData={plan}
+              key={index}
+              disabled={isInUserPlans(plan)}
             />
           ))}
         </div>
@@ -48,7 +61,5 @@ const SubscriptionPage = () => {
     </div>
   );
 };
-
-
 
 export default SubscriptionPage;

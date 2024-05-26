@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import Header from "../../../components/header/header";
 import { useDispatch, useSelector } from "react-redux";
-import { userQuestion } from "../../../redux-toolkit/FaqsSlice";
+import { userQuestion } from "../../../redux-toolkit/faqsSlice";
 
 const FAQs = () => {
   const dispatch = useDispatch();
