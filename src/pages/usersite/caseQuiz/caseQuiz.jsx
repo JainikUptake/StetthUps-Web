@@ -14,6 +14,8 @@ const CaseQuiz = () => {
   const [disabledButton, setDisabledButton] = useState(false);
   const [lifeLineMessage, setLifeLineMessage] = useState("");
   const [lifeLine, setLifeLine] = useState("");
+  const [correctCount, setCorrectCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -37,12 +39,14 @@ const CaseQuiz = () => {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         setSelectedOption(null);
         setIsCorrect(null);
-        setDisabledButton(false);
         setCorrectOption(null);
+        setDisabledButton(false);
         setLifeLineMessage("");
         setLifeLine("");
       } else {
-        alert("Quiz Finished!");
+        alert(
+          `Quiz Finished! Total Questions: ${getQuizByCaseId.length}, Correct: ${correctCount}, Incorrect: ${incorrectCount}`
+        );
       }
     }
   };
@@ -52,27 +56,27 @@ const CaseQuiz = () => {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
       setSelectedOption(null);
       setIsCorrect(null);
-      setDisabledButton(false);
       setCorrectOption(null);
+      setDisabledButton(false);
       setLifeLineMessage("");
       setLifeLine("");
     }
   };
 
   const handleOptionClick = (option) => {
-    console.log(option, "this is option");
     if (!disabledButton) {
       setSelectedOption(option);
       setDisabledButton(true);
       const correctOption =
         currentQuestion[`option_${currentQuestion.correct_ans.toLowerCase()}`];
 
-      console.log(correctOption, "---find out right answers");
-
       setIsCorrect(option === correctOption);
       setCorrectOption(correctOption);
 
-      if (option !== correctOption) {
+      if (option === correctOption) {
+        setCorrectCount(correctCount + 1);
+      } else {
+        setIncorrectCount(incorrectCount + 1);
         dispatch(ReduceLifeLineByUser(id)).then((action) => {
           if (action.payload) {
             setLifeLine(action.payload.lifeline);
@@ -156,4 +160,3 @@ const CaseQuiz = () => {
 };
 
 export default CaseQuiz;
-
