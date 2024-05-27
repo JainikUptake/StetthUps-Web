@@ -4,31 +4,82 @@ import Header from "../../../components/usersite/header/header";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetQuizByCaseId } from "../../../redux-toolkit/caseQuizSlice";
+import { ReduceLifeLineByUser } from "../../../redux-toolkit/reduceLifeLineSlice";
 
 const CaseQuiz = () => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [correctOption, setCorrectOption] = useState(null);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const [lifeLineMessage, setLifeLineMessage] = useState("");
+  const [lifeLine, setLifeLine] = useState("");
+
   const { id } = useParams();
   const dispatch = useDispatch();
   const { getQuizByCaseId, loading, error } = useSelector(
     (state) => state.getQuizByCaseId
   );
 
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-
   useEffect(() => {
     dispatch(GetQuizByCaseId(id));
   }, [dispatch, id]);
 
+  const {
+    reduceLifeLine,
+    loading: loadingLifeLine,
+    error: errorLifeLine,
+  } = useSelector((state) => state.reduceLifeLine);
+
   const handleNextClick = () => {
-    if (currentQuestionIndex < getQuizByCaseId.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      alert("Quiz Finished!");
+    if (disabledButton) {
+      if (currentQuestionIndex < getQuizByCaseId.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+        setSelectedOption(null);
+        setIsCorrect(null);
+        setDisabledButton(false);
+        setCorrectOption(null);
+        setLifeLineMessage("");
+        setLifeLine("");
+      } else {
+        alert("Quiz Finished!");
+      }
     }
   };
 
   const handleBackClick = () => {
     if (currentQuestionIndex > 0) {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setSelectedOption(null);
+      setIsCorrect(null);
+      setDisabledButton(false);
+      setCorrectOption(null);
+      setLifeLineMessage("");
+      setLifeLine("");
+    }
+  };
+
+  const handleOptionClick = (option) => {
+    console.log(option, "this is option");
+    if (!disabledButton) {
+      setSelectedOption(option);
+      setDisabledButton(true);
+      const correctOption =
+        currentQuestion[`option_${currentQuestion.correct_ans.toLowerCase()}`];
+
+      console.log(correctOption, "---find out right answers");
+
+      setIsCorrect(option === correctOption);
+      setCorrectOption(correctOption);
+
+      if (option !== correctOption) {
+        dispatch(ReduceLifeLineByUser(id)).then((action) => {
+          if (action.payload) {
+            setLifeLine(action.payload.lifeline);
+            setLifeLineMessage(action.payload.message);
+          }
+        });
+      }
     }
   };
 
@@ -55,16 +106,44 @@ const CaseQuiz = () => {
             <h1>{currentQuestion.question}</h1>
           </div>
           <ul>
-            <li>{currentQuestion.option_a}</li>
-            <li>{currentQuestion.option_b}</li>
-            <li>{currentQuestion.option_c}</li>
-            <li>{currentQuestion.option_d}</li>
+            {["a", "b", "c", "d"].map((optionKey) => {
+              const option = currentQuestion[`option_${optionKey}`];
+              return (
+                <li
+                  key={optionKey}
+                  onClick={() => handleOptionClick(option)}
+                  style={{ position: "relative", cursor: "pointer" }}
+                >
+                  {option}
+                  {selectedOption === option && (
+                    <span
+                      style={{
+                        color: isCorrect ? "green" : "red",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      {isCorrect ? "Correct!" : "Incorrect!"}
+                    </span>
+                  )}
+
+                  {!isCorrect &&
+                    correctOption === option &&
+                    selectedOption !== option && (
+                      <span style={{ color: "green", marginLeft: "10px" }}>
+                        Correct Answer!
+                      </span>
+                    )}
+                </li>
+              );
+            })}
           </ul>
+          {lifeLineMessage && <div>{lifeLineMessage}</div>}
+          {lifeLine && <div>{lifeLine}</div>}
           <div className="button-group d-flex justify-content-between">
             {currentQuestionIndex > 0 && (
               <button onClick={handleBackClick}>Back</button>
             )}
-            <button onClick={handleNextClick}>
+            <button onClick={handleNextClick} disabled={!disabledButton}>
               {currentQuestionIndex < getQuizByCaseId.length - 1
                 ? "Next"
                 : "Finish"}
@@ -77,3 +156,4 @@ const CaseQuiz = () => {
 };
 
 export default CaseQuiz;
+

@@ -53,3 +53,12 @@
 .CaseQuiz-card button:hover {
   background: #0056b3;
 }
+
+.correct {
+  color: green;
+
+}
+
+.incorrect {
+  color: red;
+}
