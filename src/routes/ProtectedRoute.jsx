@@ -22,6 +22,8 @@ import Case from "../pages/usersite/case/case";
 import CaseVideo from "../pages/usersite/caseVideo/CaseVideo";
 import CaseDescription from "../pages/usersite/caseDescription/caseDescription";
 import CaseQuiz from "../pages/usersite/caseQuiz/caseQuiz";
+import UserResult from "../pages/usersite/userResult/userResult";
+import UserSummary from "../pages/usersite/userSummary/userSummary";
 // import { loadStripe } from "@stripe/stripe-js";
 
 // const stripePromise = loadStripe(
@@ -49,6 +51,10 @@ const ProtectedRoute = [
   { path: "/user/topic/:id", element: <Topic /> },
   { path: "/user/case/desc/:id", element: <CaseDescription /> },
   { path: "/user/case/quiz/:id", element: <CaseQuiz /> },
+  { path: "/user/case/quiz/result/:id", element: <UserResult /> },
+  { path: "/user/case/quiz/summary/:id", element: <UserSummary /> },
+
+
   // {
   //   path: "/user/payment",
   //   element: (

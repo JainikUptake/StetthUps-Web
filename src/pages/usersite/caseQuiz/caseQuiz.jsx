@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./caseQuiz.css";
 import Header from "../../../components/usersite/header/header";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GetQuizByCaseId } from "../../../redux-toolkit/caseQuizSlice";
 import { ReduceLifeLineByUser } from "../../../redux-toolkit/reduceLifeLineSlice";
+import { makeResult } from "../../../redux-toolkit/makeResultByQuizSlice";
+import { userProfile } from "../../../redux-toolkit/profileSlice";
 
 const CaseQuiz = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -19,48 +21,30 @@ const CaseQuiz = () => {
 
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
   const { getQuizByCaseId, loading, error } = useSelector(
     (state) => state.getQuizByCaseId
   );
+  
+  const { reduceLifeLine } = useSelector((state) => state.reduceLifeLine);
+  const { profile } = useSelector((state) => state.userDetails);
 
   useEffect(() => {
     dispatch(GetQuizByCaseId(id));
+    dispatch(userProfile());
   }, [dispatch, id]);
-
-  const {
-    reduceLifeLine,
-    loading: loadingLifeLine,
-    error: errorLifeLine,
-  } = useSelector((state) => state.reduceLifeLine);
 
   const handleNextClick = () => {
     if (disabledButton) {
-      if (currentQuestionIndex < getQuizByCaseId.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setSelectedOption(null);
-        setIsCorrect(null);
-        setCorrectOption(null);
-        setDisabledButton(false);
-        setLifeLineMessage("");
-        setLifeLine("");
-      } else {
-        alert(
-          `Quiz Finished! Total Questions: ${getQuizByCaseId.length}, Correct: ${correctCount}, Incorrect: ${incorrectCount}`
-        );
-      }
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      resetQuestionState();
     }
   };
 
   const handleBackClick = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(currentQuestionIndex - 1);
-      setSelectedOption(null);
-      setIsCorrect(null);
-      setCorrectOption(null);
-      setDisabledButton(false);
-      setLifeLineMessage("");
-      setLifeLine("");
-    }
+    setCurrentQuestionIndex(currentQuestionIndex - 1);
+    resetQuestionState();
   };
 
   const handleOptionClick = (option) => {
@@ -87,6 +71,15 @@ const CaseQuiz = () => {
     }
   };
 
+  const resetQuestionState = () => {
+    setSelectedOption(null);
+    setIsCorrect(null);
+    setCorrectOption(null);
+    setDisabledButton(false);
+    setLifeLineMessage("");
+    setLifeLine("");
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -100,6 +93,37 @@ const CaseQuiz = () => {
   }
 
   const currentQuestion = getQuizByCaseId[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === getQuizByCaseId.length - 1;
+
+  const handleUserResult = async (e) => {
+    e.preventDefault();
+    try {
+      const userScore = {
+        score: correctCount,
+        total_questions: getQuizByCaseId.length,
+        total_attempted_questions: getQuizByCaseId.length,
+        is_completed: 1,
+        case_id: id,
+        user_id: profile.id,  // Use profile.id or appropriate user id field
+      };
+      console.log(userScore, "-------user score");
+      const response = await dispatch(makeResult(userScore));
+      console.log(response, "response in status");
+
+      const status = response?.payload?.status
+      console.log(status,"------status code")
+
+      if (status === 200) {
+        navigate(`/user/case/quiz/result/${id}`)
+        
+      }
+    
+
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bgImg vh-100">
@@ -147,10 +171,11 @@ const CaseQuiz = () => {
             {currentQuestionIndex > 0 && (
               <button onClick={handleBackClick}>Back</button>
             )}
-            <button onClick={handleNextClick} disabled={!disabledButton}>
-              {currentQuestionIndex < getQuizByCaseId.length - 1
-                ? "Next"
-                : "Finish"}
+            <button onClick={handleNextClick} disabled={!disabledButton || isLastQuestion}>
+              Next
+            </button>
+            <button onClick={handleUserResult} disabled={!isLastQuestion}>
+              Finish
             </button>
           </div>
         </div>

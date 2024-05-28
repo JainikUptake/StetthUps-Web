@@ -1,0 +1,46 @@
+.userResult-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+.rightAnswerCard {
+  background-color: rgba(236, 255, 235, 1);
+}
+
+.resultDangerCard {
+  background-color: rgb(219, 141, 141);
+}
+.rightLogoBgColor{
+  color:  rgba(75, 181, 67, 1)
+  ;
+}
+.wrongLogoBgColor{
+  color: rgba(215, 63, 90, 1)
+}
+
+.userSummaryBtn{
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 15px;
+}
+
+.userSummaryBtn:hover {
+  background: #0056b3;
+}
+.userGotoPageBtn{
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(103, 57, 183, 1);
+  color: white;
+  border: none;
+  border-radius: 15px;
+
+}
