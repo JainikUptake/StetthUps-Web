@@ -10,38 +10,35 @@ const UserSummary = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { getQuizByCaseId } = useSelector((state) => state.getQuizByCaseId);
-  console.log(getQuizByCaseId, "-----get All case");
-
-  const getAllQuiz = getQuizByCaseId?.quiz
-  console.log(getAllQuiz ,"all quiz")
-
-  // const allCombo = getAllQuiz?.question 
+  const getAllQuiz = getQuizByCaseId?.quiz;
 
   useEffect(() => {
     dispatch(GetQuizByCaseId(id));
-  }, []);
+  }, [dispatch, id]);
+
   return (
-    <div className="bgImg vh-100">
+    <div className="bgImg">
       <Header />
-      <div className="dash-container">
+      <div className="summary-container">
         <div className="userSummary-card">
-          <div className="fw-bold fs-2">Summary</div>
-          <p>{getQuizByCaseId?.case_name}</p>
-          <div
-          className="summaryCaseAnalysis"
-            dangerouslySetInnerHTML={{
-              __html: getQuizByCaseId?.case_analysis,
-            }}
-          ></div>
-          {/* question answerr and  explanation */}
-          {getAllQuiz?.map((quiz, index) => (
-            <CaseQuestion
-              subData={quiz}
-              key={index}
-              // disabled={isInUserPlans(plan)}
-            />
+            {/* <div className="fw-bold fs-2">Summary</div>
+            <p>{getQuizByCaseId?.case_name}</p>
+            <div
+              className="summaryCaseAnalysis"
+              dangerouslySetInnerHTML={{
+                __html: getQuizByCaseId?.case_analysis,
+              }}
+            >
+
+            </div> */}
+          <div >
+        {getAllQuiz?.map((quiz, index) => (
+            <CaseQuestion subData={quiz} key={index} />
           ))}
+          </div>
+          
         </div>
+            
       </div>
     </div>
   );
