@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Header from "../../../components/usersite/header/header";
 import "./userSummary.css";
 import { GetQuizByCaseId } from "../../../redux-toolkit/caseQuizSlice";
+import CaseQuestion from "../../../components/questions/caseQuestion";
 
 const UserSummary = () => {
   const { id } = useParams();
@@ -33,18 +34,13 @@ const UserSummary = () => {
             }}
           ></div>
           {/* question answerr and  explanation */}
-          {
-            getAllQuiz?.map((getAllQue)=>(
-              <>
-              <div>{ getAllQue?.question}</div>
-              <div>{getAllQue?.correct_ans}</div>
-              <textarea name="" id="" cols="30" rows="10">{getAllQue?.explanation}</textarea>
-              </>
-            
-             
-            ))
-
-          }
+          {getAllQuiz?.map((quiz, index) => (
+            <CaseQuestion
+              subData={quiz}
+              key={index}
+              // disabled={isInUserPlans(plan)}
+            />
+          ))}
         </div>
       </div>
     </div>
