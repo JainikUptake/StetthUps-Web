@@ -1,42 +1,54 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { GetSummary } from '../../../redux-toolkit/userSummarySlice';
-import Header from '../../../components/usersite/header/header';
-import "./userSummary.css"
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Header from "../../../components/usersite/header/header";
+import "./userSummary.css";
+import { GetQuizByCaseId } from "../../../redux-toolkit/caseQuizSlice";
 
 const UserSummary = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { getQuizByCaseId } = useSelector((state) => state.getQuizByCaseId);
+  console.log(getQuizByCaseId, "-----get All case");
 
-    const { id } = useParams();
-    const dispatch = useDispatch();
-    const { getuserSummary } = useSelector(
-      (state) => state.getSummary
-    );
-    console.log(getuserSummary, "-----get All case");
-  
-    useEffect(() => {
-      dispatch(GetSummary(id));
-    }, []);
+  const getAllQuiz = getQuizByCaseId?.quiz
+  console.log(getAllQuiz ,"all quiz")
+
+  // const allCombo = getAllQuiz?.question 
+
+  useEffect(() => {
+    dispatch(GetQuizByCaseId(id));
+  }, []);
   return (
     <div className="bgImg vh-100">
-    <Header />
-    <div className="dash-container">
-      <div className="userSummary-card">
-        <div className='fw-bold fs-2'>Summary</div>
+      <Header />
+      <div className="dash-container">
+        <div className="userSummary-card">
+          <div className="fw-bold fs-2">Summary</div>
+          <p>{getQuizByCaseId?.case_name}</p>
+          <div
+          className="summaryCaseAnalysis"
+            dangerouslySetInnerHTML={{
+              __html: getQuizByCaseId?.case_analysis,
+            }}
+          ></div>
+          {/* question answerr and  explanation */}
+          {
+            getAllQuiz?.map((getAllQue)=>(
+              <>
+              <div>{ getAllQue?.question}</div>
+              <div>{getAllQue?.correct_ans}</div>
+              <textarea name="" id="" cols="30" rows="10">{getAllQue?.explanation}</textarea>
+              </>
+            
+             
+            ))
 
-        {/* <p>{getuserSummary?.[0]?.case_name}</p>
-
-        dangerouslySetInnerHTML={{
-                __html: subscriptionPlanById?.description,
-              }}
-        <p>{getuserSummary?.[0]?.case_analysis}</p>
-
-        case_analysis */}
-
+          }
         </div>
-        </div>
-        </div>
-  )
-}
+      </div>
+    </div>
+  );
+};
 
-export default UserSummary
+export default UserSummary;

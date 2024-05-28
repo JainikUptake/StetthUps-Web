@@ -62,26 +62,25 @@ const UserResult = () => {
               </div>
             </div>
           </div>
-          <div>
+          <div className="resultBtnGroup">
             <button
-            className="userSummaryBtn"
+              className="userSummaryBtn"
               type="button"
               onClick={() => handleSummary(id)}
             >
               <span>
-                <BookAudio size={40} strokeWidth={1.75} />
+                <BookAudio size={35} strokeWidth={1.75} />
               </span>
               Summary{" "}
             </button>
 
             <button
-              
               onClick={() => navigate("/user/subject")}
               className="userGotoPageBtn"
             >
               Go to Main Page{" "}
               <span>
-                <ArrowRight size={40} strokeWidth={1.75} />
+                <ArrowRight size={30} strokeWidth={1.75} />
               </span>
             </button>
           </div>

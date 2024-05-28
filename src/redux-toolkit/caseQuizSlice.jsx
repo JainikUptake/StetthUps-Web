@@ -7,8 +7,8 @@ export const GetQuizByCaseId = createAsyncThunk(
   async (id) => {
     try {
       const response = await baseURL.get(`/v1/get/quiz/case/${id}`);
-      console.log(response?.data?.data[0]?.quiz, "response in slice");
-      return response?.data?.data[0]?.quiz;
+      console.log(response?.data?.data, "response in slice");
+      return response?.data?.data;
     } catch (error) {
       console.log(error);
     }

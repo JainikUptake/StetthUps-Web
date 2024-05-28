@@ -26,6 +26,9 @@ const CaseQuiz = () => {
   const { getQuizByCaseId, loading, error } = useSelector(
     (state) => state.getQuizByCaseId
   );
+  console.log(getQuizByCaseId,"-----response get per")
+
+  const getQuizByCaseIdQuiz = getQuizByCaseId?.quiz
   
   const { reduceLifeLine } = useSelector((state) => state.reduceLifeLine);
   const { profile } = useSelector((state) => state.userDetails);
@@ -88,20 +91,20 @@ const CaseQuiz = () => {
     return <div>Error: {error}</div>;
   }
 
-  if (!getQuizByCaseId || getQuizByCaseId.length === 0) {
+  if (!getQuizByCaseIdQuiz || getQuizByCaseIdQuiz.length === 0) {
     return <div>No quiz data available.</div>;
   }
 
-  const currentQuestion = getQuizByCaseId[currentQuestionIndex];
-  const isLastQuestion = currentQuestionIndex === getQuizByCaseId.length - 1;
+  const currentQuestion = getQuizByCaseIdQuiz[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === getQuizByCaseIdQuiz.length - 1;
 
   const handleUserResult = async (e) => {
     e.preventDefault();
     try {
       const userScore = {
         score: correctCount,
-        total_questions: getQuizByCaseId.length,
-        total_attempted_questions: getQuizByCaseId.length,
+        total_questions: getQuizByCaseIdQuiz.length,
+        total_attempted_questions: getQuizByCaseIdQuiz.length,
         is_completed: 1,
         case_id: id,
         user_id: profile.id,  // Use profile.id or appropriate user id field

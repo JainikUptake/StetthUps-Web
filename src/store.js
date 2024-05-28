@@ -20,7 +20,6 @@ import { getQuizByCaseIdSliceReducer } from "./redux-toolkit/caseQuizSlice";
 import { reduceLifeLineSliceReducer } from "./redux-toolkit/reduceLifeLineSlice";
 import { makeResultByQuizSliceReducer } from "./redux-toolkit/makeResultByQuizSlice";
 import { getResultByCaseIdSliceReducer } from "./redux-toolkit/getResultByCaseId";
-import { getSummarySliceReducer } from "./redux-toolkit/userSummarySlice";
 const store = configureStore({
   reducer: {
     user: userReducer,
@@ -40,7 +39,7 @@ const store = configureStore({
     reduceLifeLine:reduceLifeLineSliceReducer,
     makeResultByQuiz:makeResultByQuizSliceReducer,
     getResultByCaseId:getResultByCaseIdSliceReducer,
-    getSummary:getSummarySliceReducer,
+    
   },
 });
 export default store;
