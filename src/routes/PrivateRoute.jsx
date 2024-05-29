@@ -1,19 +1,17 @@
-import { Navigate } from "react-router-dom";
-import Email from "../pages/auth/login/email/email";
-import Phone from "../pages/auth/login/phone/phone";
-import Verify from "../pages/auth/login/phone/verify/verify";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import Register from "../pages/auth/register/register";
-// import Verify from "../pages/auth/register/verify/verify";
-
-const PrivateRoute = [
-  { path: `*`, element: <Navigate to="/auth/login/email" replace /> },
-  
-  { path: `/auth/login/phone/verify/:phone`, element: <Verify /> },
-  { path: `/auth/login/email`, element: <Email /> },
-  { path: `/auth/login/phone`, element: <Phone /> },
-  { path: `/auth/register`, element: <Register /> },
-  // { path: `auth/register/verify`, element: <Verify /> },
-];
-export default PrivateRoute;
-
+const Private = ({ privateComponent }) => {
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user);
+  // console.log(user, "----------------------user-------------------");
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  });
+  return privateComponent;
+};
+export default Private;
