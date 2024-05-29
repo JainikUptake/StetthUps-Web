@@ -25,3 +25,11 @@
 ## npm i --save @awesome.me/kit-KIT_CODE
 
 ## npm i --save @fortawesome/react-fontawesome@latest
+
+## npm i react-redux
+
+## npm install lucide-react
+
+## npm install sweetalert2
+
+## npm install recharts

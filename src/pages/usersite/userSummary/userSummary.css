@@ -1,0 +1,18 @@
+.summary-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.userSummary-card {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.summaryCaseAnalysis {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}

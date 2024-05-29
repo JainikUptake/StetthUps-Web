@@ -2,7 +2,7 @@
 import { useState } from "react";
 import images from "../../assets";
 import "./header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -10,16 +10,16 @@ import {
   Nav,
   NavItem,
   Button,
-  Container,
 } from "reactstrap";
 
 const Header = (args) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar {...args} expand="lg" fixed="top" className="bg-white " container>
+    <Navbar {...args} expand="lg" fixed="top" className="bg-white" container>
       <Link to="/" className="navbar-brand ">
         <img src={images.NavLogo} alt="" />
       </Link>
@@ -27,22 +27,24 @@ const Header = (args) => {
       <Collapse isOpen={isOpen} navbar>
         <Nav className="ms-auto" navbar>
           <NavItem>
-            <Link to="/pricing" className="nav-item ">
+            <Link to="user/pricing" className="nav-item ">
               Pricing
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/about" className="nav-item">
+            <Link to="/user/about" className="nav-item">
               About us
             </Link>
           </NavItem>
           <NavItem>
-            <Link to="/contact" className="nav-item">
+            <Link to="/user/contact" className="nav-item">
               Contact
             </Link>
           </NavItem>
           <NavItem className="loginBtnMediaQuery loginBtn">
-            <Button color="info">Log in</Button>
+            <Button color="info" onClick={() => navigate("/auth/login/email")}>
+              Log in
+            </Button>
           </NavItem>
         </Nav>
       </Collapse>

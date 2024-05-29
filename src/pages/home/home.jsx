@@ -33,28 +33,26 @@ const Home = () => {
       <Header />
 
       <Row className="bg-image">
-        <Container>
-          <Col lg={6} className="studentContent mt-5 p-5">
-            <div className="display-3 fw-bolder">
-              Only Audio Visual Question Bank Globally
-              <span className="text-primary"> For Medical Students</span>
-            </div>
-            <div className="fw-light fs-4 text">
-              Unlock a world of knowledge with the ultimate audio visual
-              question bank, followed analytics and more by our support team to
-              ensure success in your medical exams.
-            </div>
+        <Col lg={6} className="studentContent mt-5 p-5">
+          <div className="display-3 fw-bolder">
+            Only Audio Visual Question Bank Globally
+            <span className="text-primary"> For Medical Students</span>
+          </div>
+          <div className="fw-light fs-4 text">
+            Unlock a world of knowledge with the ultimate audio visual question
+            bank, followed analytics and more by our support team to ensure
+            success in your medical exams.
+          </div>
 
-            <div>
-              <button type="button" class="btn btn-lg btn-primary studentBtn">
-                Get Started
-              </button>
-              <button type="button" class="btn btn-lg btn-primary studentBtn">
-                Learn More
-              </button>
-            </div>
-          </Col>
-        </Container>
+          <div>
+            <button type="button" class="btn btn-lg btn-primary studentBtn">
+              Get Started
+            </button>
+            <button type="button" class="btn btn-lg btn-primary studentBtn">
+              Learn More
+            </button>
+          </div>
+        </Col>
       </Row>
 
       <div className="eduBgColor">

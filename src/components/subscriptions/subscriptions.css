@@ -1,0 +1,29 @@
+.card-shadow {
+    border-bottom-right-radius: 0px;
+    box-shadow: rgba(56, 56, 232, 0.2) 0px 10px 10px -8px inset, rgba(95, 55, 216, 0.3) 0px 18px 50px -18px inset;
+}
+
+.btnStart {
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    height: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.btnBuy {
+    background-color: rgb(128, 0, 118);
+    border-radius: 8px;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px;
+
+}
+
+.btnBuy.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}

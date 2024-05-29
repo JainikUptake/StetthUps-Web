@@ -1,0 +1,11 @@
+.shadow-on-hover {
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-on-hover:hover {
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* .signup-form {
+    border: 1px black solid;
+} */

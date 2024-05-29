@@ -3,7 +3,7 @@
 }
 
 .bg-image {
-    background-image: url('../../assets/home-banner.jpg');
+    background-image: url('../../assets/images/home-banner.jpg');
     width: 100%;
     height: auto;
     background-size: cover;

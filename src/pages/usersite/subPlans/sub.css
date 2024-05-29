@@ -1,0 +1,71 @@
+.subPlans-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+
+
+.subscription-title {
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.subscription-subtitle {
+  font-size: 20px;
+  color: #7b61ff;
+  margin: 10px 0;
+}
+
+.subscription-duration,
+.subscription-price,
+.subscription-lifelines {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.subscription-duration span,
+.subscription-price span,
+.subscription-lifelines span {
+  font-weight: bold;
+}
+
+.subscription-description {
+  text-align: left;
+  font-size: 14px;
+  color: #666;
+  margin: 20px 0;
+}
+
+.subscription-description ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.subscription-description li {
+  margin: 5px 0;
+}
+
+.buy-button {
+  background-color: #7b61ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.buy-button:hover {
+  background-color: #6847cc;
+}

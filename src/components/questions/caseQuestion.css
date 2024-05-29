@@ -1,0 +1,29 @@
+/* caseQuestion.css */
+
+.question {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.options {
+    list-style-type: none;
+    padding: 0;
+}
+
+.options li {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.5s;
+}
+
+.options li:hover {
+    background-color: #5c8cbc;
+}
+
+.explanation {
+    margin-top: 1rem;
+    font-style: italic;
+}
