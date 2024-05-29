@@ -7,8 +7,10 @@ import { userProfile } from "../../../redux-toolkit/profileSlice";
 import { ClaimLifeLine, GetStreak } from "../../../redux-toolkit/streakSlice";
 import Swal from "sweetalert2";
 import { ChevronLeftSquare, Equal, Flame, HeartPulse } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Streaks = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
@@ -72,6 +74,7 @@ const Streaks = () => {
                     size={48}
                     strokeWidth={3}
                     absoluteStrokeWidth
+                    onClick={()=> navigate("/user/dashboard")}
                   />
                 </div>
                 <div className="fs-3">Streaks</div>
