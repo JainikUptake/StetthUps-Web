@@ -1,9 +1,23 @@
 /* Full-screen background image for the whole page */
-.bgImg {
+/* .bgImg {
   background-image: url(../src/assets/images/user_bg.png);
   width: 100%;
-  height: 100%;
+  height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
+
+  /* Full-screen background image for the whole page */
+  .bgImg {
+    background-image: url(../src/assets/images/user_bg.png);
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  

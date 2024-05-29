@@ -1,97 +1,97 @@
-import React, { PureComponent } from "react";
+import React, { useEffect } from "react";
 import "./statistics.css";
-
-import { Col, Row, Container } from "reactstrap";
-import { ChevronLeftSquare } from "lucide-react";
-
-
-const data01 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
-// const data02 = [
-//   { name: "A1", value: 100 },
-//   { name: "A2", value: 300 },
-//   { name: "B1", value: 100 },
-//   { name: "B2", value: 80 },
-//   { name: "B3", value: 40 },
-//   { name: "B4", value: 30 },
-//   { name: "B5", value: 50 },
-//   { name: "C1", value: 100 },
-//   { name: "C2", value: 200 },
-//   { name: "D1", value: 150 },
-//   { name: "D2", value: 50 },
-// ];
+import { SquareArrowLeft } from "lucide-react";
+import Header from "../../../components/header/header";
+import { useDispatch, useSelector } from "react-redux";
+import { GetStatistics } from "../../../redux-toolkit/getStatisticsSlice";
+import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 const Statistics = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { getUserStatistics, loading, error } = useSelector(
+    (state) => state.getStatistics
+  );
+
+  useEffect(() => {
+    dispatch(GetStatistics());
+  }, [dispatch]);
+
+  const data = [
+    { name: "Correct", value: getUserStatistics?.totalCorrect || 0 },
+    { name: "Incorrect", value: getUserStatistics?.totalIncorrect || 0 },
+  ];
+
+  const COLORS = ["#16BFD6", "#000000"];
+
   return (
     <>
-      <Container>
-        <div className="d-flex align-items-center">
-          <div>
-            <ChevronLeftSquare size={50} strokeWidth={3} absoluteStrokeWidth />
-          </div>
-          <div className="fs-2 contactUs">Statistics</div>
+      <div className="bgImg">
+        <div className="header-container">
+          <Header />
         </div>
-        <Row>
-          <Col>
-            {/* <ResponsiveContainer width="100%" height="100%">
-              <PieChart height={400} width={400}>
-                <Pie
-                  data={data01}
-                  dataKey="value"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={60}
-                  fill="#8884d8"
-                />
-                <Pie
-                  data={data02}
-                  dataKey="value"
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={70}
-                  outerRadius={90}
-                  fill="#82ca9d"
-                  label
-                />
-              </PieChart>
-            </ResponsiveContainer> */}
-
-            <div className="fs-3">93%</div>
-            <div className="fw-bold fs-4">Correct</div>
-          </Col>
-          <Col>
-            <div className="fs-3 mt-4 fw-bold">Your Score</div>
-            <div className="fs-5 text-muted">
-              Total Attempted :{" "}
-              <span className=" fs-5 fw-bold statisticsValue  p-2">1998 </span>
+        <div className="state-container">
+          <div className="statistics-card d-flex flex-column align-items-center">
+            <div className="back-button" onClick={() => navigate("user/dashboard")}>
+              <SquareArrowLeft size={40} strokeWidth={1} fill="green" />
+              <span>Back</span>
             </div>
-            <div className="fs-5 text-muted my-3">
-              Total Correct : <span className=" fs-5 fw-bold statisticsValue totalStatisticsValue p-1 ">1800 </span>
+            <span className="fs-2 fw-bold">Statistics</span>
+            <div className="row">
+              <div className="col">
+                <div className="statistics-content">
+                  <div className="chart-container">
+                    <ResponsiveContainer width="100%" height={400}>
+                      <PieChart>
+                        <Pie
+                          data={data}
+                          dataKey="value"
+                          nameKey="name"
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={150}
+                          fill="#8884d8"
+                          label
+                        >
+                          {data.map((entry, index) => (
+                            <Cell
+                              key={`cell-${index}`}
+                              fill={COLORS[index % COLORS.length]}
+                            />
+                          ))}
+                        </Pie>
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+              </div>
+              <div className="col">
+                <div className="stats-list">
+                  <div className="fs-3 fw-bold d-flex justify-content-center scoreTextColor">Your Score</div>
+                  <ul className="list-group">
+                    <li className="list-group-item">
+                      <span className="fw-bold text-secondary">Total Attempts:</span> 
+                      {getUserStatistics?.totalQuestions}
+                    </li>
+                    <li className="list-group-item">
+                      <span className="fw-bold text-secondary">Total Correct:</span>
+                      <span className="text-success"> {getUserStatistics?.totalCorrect}</span>
+                    </li>
+                    <li className="list-group-item">
+                      <span className="fw-bold text-secondary">Total Incorrect:</span>
+                      <span className="text-danger"> {getUserStatistics?.totalIncorrect}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="fs-5 text-muted">
-              Total Incorrect : <span className="fs-5 fw-bold statisticsValue p-1">98 </span>
-            </div>
-
-            {/* <div className="d-flex align-items-center mt-3">
-              <span className="fs-5 text-muted">Total Attempted : </span>
-              <div className=" fs-5"> 1998</div>
-            </div>
-            <div className="d-flex align-items-center mt-3">
-              <span className="fs-5 text-muted">Total Correct : </span>
-              <div className=" fs-5"> 1800</div>
-            </div>
-            <div className="d-flex align-items-center mt-3">
-              <span className="fs-5 text-muted">Total Incorrect : </span>
-              <div className="fs-5"> 98</div>
-            </div> */}
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
+
 export default Statistics;
