@@ -1,9 +1,51 @@
-.background-image{
-    background-image: url("../../../assets//images/user_bg.png");
-    background-size:cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    height: 100vh;
-    width: 100%;
+
+
+.background-image {
+  background-image: url("../../../assets/images/user_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.register-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 170px;
+  height: 100vh;
+}
+
+.register-card {
+  background-color: white;
+  border-radius: 30px;
+  padding: 20px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.register-title{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.register-form{
+  padding: 50px;
+}
+.register-submit{
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.register-submit .col{
+  display: flex;
+}
+.register-btn {
+  padding: 15px;
+  height: auto;
+  width: 30%;
+  border-radius: 20px;
+  background-color: #6739B7 !important;
+}
+
+.register-row div{
+  margin-top: 10px;
 }

@@ -1,0 +1,58 @@
+.background-image {
+  background-image: url("../../../../assets/images/user_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.login-phone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 170px;
+  height: 100vh;
+}
+
+.login-phone-card {
+  background-color: white;
+  border-radius: 30px;
+  padding: 20px;
+  /* width: 100%; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.login-phone-title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+/* .login-form{
+    padding: 50px;
+  } */
+.login-phone-submit {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.login-phone-submit .col {
+  display: flex;
+}
+.login-phone-btn {
+  margin: 25px 0 25px 0;
+  height: auto;
+  width: 50%;
+  background-color: #6739b7 !important;
+}
+
+.login-phone-row div {
+  margin-top: 5px;
+}
+.login-phone-subtitle {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.login-phone-subtitle a {
+  color: #6739b7;
+  text-decoration: none;
+  font-weight: bold;
+}

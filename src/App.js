@@ -13,6 +13,11 @@ import Dashboard from "./pages/user/dashboard";
 import Register from "./pages/auth/register";
 import Private from "./routes/PrivateRoute";
 import Protected from "./routes/ProtectedRoute";
+import LoginWithEmail from "./pages/auth/login/email";
+import LoginWithPhone from "./pages/auth/login/phone";
+import ForgotPassword from "./pages/auth/forget/verify";
+import ResetPassword from "./pages/auth/forget/reset";
+import OTP from "./pages/auth/login/phone/otp";
 
 
 const Layout = () => {
@@ -55,7 +60,27 @@ const router = createBrowserRouter(
         path="/auth/register"
         element={<Private privateComponent={<Register />} />}
       ></Route>
-     
+      <Route
+        path="/auth/login/email"
+        element={<Private privateComponent={<LoginWithEmail />} />}
+      ></Route>
+      <Route
+        path="/auth/login/phone"
+        element={<Private privateComponent={<LoginWithPhone />} />}
+      ></Route>
+      <Route
+        path="/auth/login/phone/otp"
+        element={<Private privateComponent={<OTP />} />}
+      ></Route>
+       <Route
+        path="/auth/forget/password"
+        element={<Private privateComponent={<ForgotPassword />} />}
+      ></Route>
+       <Route
+        path="/auth/reset/password"
+        element={<Private privateComponent={<ResetPassword />} />}
+      ></Route>
+      
     </Route>
   )
 );
