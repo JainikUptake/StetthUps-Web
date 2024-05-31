@@ -18,29 +18,79 @@ import {
   MapPin,
   BookOpenText,
   MessageCircleHeart,
+  NotebookPen,
+  Heart,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { GetAllStateAndCity } from "../../../redux-toolkit/auth/registerSlice";
+import {
+  GetAllColleges,
+  GetAllStateAndCity,
+} from "../../../redux-toolkit/auth/registerSlice";
+import e from "cors";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    password: "",
+    state_id: "",
+    city_id: "",
+    college_id: "",
+    current_year: "",
+    preparing_for: "",
+    interested_field: "",
+  });
+
+  function handleChange(e) {
+    // formData["first_name"] = "suraj"
+    // formData["last_name"] = "pithva"
+    // formData["email"] = "sjsjsssjs"
+
+    // formData[name] = value
+
+    let { name, value } = e.target;
+    console.log(name, "---", value);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // setFormData((prev) => (formData[name] = value ));
+
+    if (name == "state_id") {
+      console.log(value);
+      console.log(allStateAndCity?.data[0].id, "----------state");
+      const selectedStateData = allStateAndCity?.data.find(
+        (state) => state.id == value
+      );
+      console.log(selectedStateData, "-----------");
+      setCities(selectedStateData?.cities || []);
+    }
+  }
+
   const dispatch = useDispatch();
   const { allStateAndCity } = useSelector((state) => state.GetStateAndCity);
+  const { allCollege } = useSelector((state) => state.GetAllColleges);
+  console.log(allCollege, "all clg");
+
   const [cities, setCities] = useState([]);
   // const [selectedState, setSelectedState] = useState("");
 
   useEffect(() => {
     dispatch(GetAllStateAndCity());
+    dispatch(GetAllColleges());
   }, [dispatch]);
 
-  const handleStateChange = (e) => {
-    const stateId = e.target.value;
-    console.log(stateId)
-    console.log(allStateAndCity?.data[0].id,"----------state")
-    const selectedStateData = allStateAndCity?.data.find(state => state.id == stateId);
-    console.log(selectedStateData,"-----------")
-    setCities(selectedStateData?.cities || []);
-  };
+  // const handleStateChange = (e) => {
+  //   const stateId = e.target.value;
+  //   console.log(stateId);
+  //   console.log(allStateAndCity?.data[0].id, "----------state");
+  //   const selectedStateData = allStateAndCity?.data.find(
+  //     (state) => state.id == stateId
+  //   );
+  //   console.log(selectedStateData, "-----------");
+  //   setCities(selectedStateData?.cities || []);
+  // };
 
+  console.log(formData, "formdataa");
   return (
     <div className="background-image">
       <div className="register-container">
@@ -58,8 +108,10 @@ const Register = () => {
                     <UserRound />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.first_name}
                     id="firstName"
-                    name="first name"
+                    name="first_name"
                     placeholder="First Name"
                     type="text"
                   />
@@ -71,8 +123,10 @@ const Register = () => {
                     <UserRound />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.last_name}
                     id="lastName"
-                    name="last name"
+                    name="last_name"
                     placeholder="Last Name"
                     type="text"
                   />
@@ -84,6 +138,8 @@ const Register = () => {
                     <UserRound />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.phone}
                     id="phone"
                     name="phone"
                     placeholder="Phone"
@@ -97,6 +153,8 @@ const Register = () => {
                     <Mail />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.email}
                     id="email"
                     name="email"
                     placeholder="Email"
@@ -110,6 +168,8 @@ const Register = () => {
                     <Lock />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.password}
                     id="password"
                     name="password"
                     placeholder="Password"
@@ -137,9 +197,10 @@ const Register = () => {
                   </InputGroupText>
                   <Input
                     id="state"
-                    name="state"
+                    name="state_id"
                     type="select"
-                    onChange={handleStateChange}
+                    onChange={handleChange}
+                    value={formData.state_id}
                   >
                     <option selected disabled>
                       Select Your State
@@ -157,7 +218,13 @@ const Register = () => {
                   <InputGroupText>
                     <MapPin />
                   </InputGroupText>
-                  <Input id="city" name="city" type="select">
+                  <Input
+                    id="city"
+                    name="city_id"
+                    type="select"
+                    onChange={handleChange}
+                    value={formData.city_id}
+                  >
                     <option selected disabled>
                       Select Your City
                     </option>
@@ -171,15 +238,24 @@ const Register = () => {
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
-                  <InputGroupText>@</InputGroupText>
-                  <Input id="college" name="college" type="select">
+                  <InputGroupText>
+                    <NotebookPen />
+                  </InputGroupText>
+                  <Input
+                    id="college"
+                    name="college_id"
+                    type="select"
+                    onChange={handleChange}
+                    value={formData.college_id}
+                  >
                     <option selected disabled>
-                      Select
+                      Select Your Colleges
                     </option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {allCollege?.data?.map((allClg, index) => (
+                      <option value={allClg.id} key={index}>
+                        {allClg?.college_name}
+                      </option>
+                    ))}
                   </Input>
                 </InputGroup>
               </Col>
@@ -188,7 +264,13 @@ const Register = () => {
                   <InputGroupText>
                     <BookOpenText />
                   </InputGroupText>
-                  <Input id="currentYear" name="current_year" type="select">
+                  <Input
+                    id="currentYear"
+                    name="current_year"
+                    type="select"
+                    onChange={handleChange}
+                    value={formData.current_year}
+                  >
                     <option disabled selected>
                       Please select current year
                     </option>
@@ -206,7 +288,13 @@ const Register = () => {
                   <InputGroupText>
                     <MessageCircleHeart />
                   </InputGroupText>
-                  <Input id="preparingFor" name="preparing_for" type="select">
+                  <Input
+                    id="preparingFor"
+                    name="preparing_for"
+                    type="select"
+                    onChange={handleChange}
+                    value={formData.preparing_for}
+                  >
                     <option selected disabled>
                       Please select preparing for
                     </option>
@@ -220,11 +308,15 @@ const Register = () => {
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
-                  <InputGroupText>@</InputGroupText>
+                  <InputGroupText>
+                    <Heart />
+                  </InputGroupText>
                   <Input
                     id="interestedField"
                     name="interested_field"
                     type="select"
+                    onChange={handleChange}
+                    value={formData.interested_field}
                   >
                     <option selected disabled>
                       Please select interested field
@@ -300,5 +392,4 @@ const Register = () => {
     </div>
   );
 };
-
 export default Register;
