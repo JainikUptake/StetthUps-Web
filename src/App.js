@@ -18,6 +18,7 @@ import LoginWithPhone from "./pages/auth/login/phone";
 import ForgotPassword from "./pages/auth/forget/verify";
 import ResetPassword from "./pages/auth/forget/reset";
 import OTP from "./pages/auth/login/phone/otp";
+import LoginWithEmails from "./pages/auth/login/email";
 
 
 const Layout = () => {
@@ -62,7 +63,7 @@ const router = createBrowserRouter(
       ></Route>
       <Route
         path="/auth/login/email"
-        element={<Private privateComponent={<LoginWithEmail />} />}
+        element={<Private privateComponent={<LoginWithEmails />} />}
       ></Route>
       <Route
         path="/auth/login/phone"

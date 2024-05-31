@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import {
   Col,
@@ -19,8 +19,28 @@ import {
   BookOpenText,
   MessageCircleHeart,
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetAllStateAndCity } from "../../../redux-toolkit/auth/registerSlice";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const { allStateAndCity } = useSelector((state) => state.GetStateAndCity);
+  const [cities, setCities] = useState([]);
+  // const [selectedState, setSelectedState] = useState("");
+
+  useEffect(() => {
+    dispatch(GetAllStateAndCity());
+  }, [dispatch]);
+
+  const handleStateChange = (e) => {
+    const stateId = e.target.value;
+    console.log(stateId)
+    console.log(allStateAndCity?.data[0].id,"----------state")
+    const selectedStateData = allStateAndCity?.data.find(state => state.id == stateId);
+    console.log(selectedStateData,"-----------")
+    setCities(selectedStateData?.cities || []);
+  };
+
   return (
     <div className="background-image">
       <div className="register-container">
@@ -42,7 +62,6 @@ const Register = () => {
                     name="first name"
                     placeholder="First Name"
                     type="text"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -56,7 +75,6 @@ const Register = () => {
                     name="last name"
                     placeholder="Last Name"
                     type="text"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -70,7 +88,6 @@ const Register = () => {
                     name="phone"
                     placeholder="Phone"
                     type="tel"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -84,7 +101,6 @@ const Register = () => {
                     name="email"
                     placeholder="Email"
                     type="email"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -98,7 +114,6 @@ const Register = () => {
                     name="password"
                     placeholder="Password"
                     type="password"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -112,7 +127,6 @@ const Register = () => {
                     name="confirm password"
                     placeholder="Confirm Password"
                     type="password"
-                    required
                   />
                 </InputGroup>
               </Col>
@@ -121,14 +135,20 @@ const Register = () => {
                   <InputGroupText>
                     <MapPin />
                   </InputGroupText>
-                  <Input id="state" name="state" type="select">
+                  <Input
+                    id="state"
+                    name="state"
+                    type="select"
+                    onChange={handleStateChange}
+                  >
                     <option selected disabled>
                       Select Your State
                     </option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {allStateAndCity?.data?.map((ele, index) => (
+                      <option value={ele.id} key={index}>
+                        {ele?.state_name}
+                      </option>
+                    ))}
                   </Input>
                 </InputGroup>
               </Col>
@@ -141,10 +161,11 @@ const Register = () => {
                     <option selected disabled>
                       Select Your City
                     </option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {cities.map((city, index) => (
+                      <option value={city.id} key={index}>
+                        {city.city_name}
+                      </option>
+                    ))}
                   </Input>
                 </InputGroup>
               </Col>
@@ -200,7 +221,11 @@ const Register = () => {
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
                   <InputGroupText>@</InputGroupText>
-                  <Input id="interestedField" name="interested_field" type="select">
+                  <Input
+                    id="interestedField"
+                    name="interested_field"
+                    type="select"
+                  >
                     <option selected disabled>
                       Please select interested field
                     </option>
@@ -210,17 +235,27 @@ const Register = () => {
                     <option value="Microbiology">Microbiology</option>
                     <option value="Pathology">Pathology</option>
                     <option value="Forensic Medicine">Forensic Medicine</option>
-                    <option value="Preventive and social medicine">Preventive and social medicine</option>
+                    <option value="Preventive and social medicine">
+                      Preventive and social medicine
+                    </option>
                     <option value="E.N.T">E.N.T</option>
                     <option value="Ophthalmology">Ophthalmology</option>
                     <option value="Medicine">Medicine</option>
                     <option value="Psychiatry">Psychiatry</option>
-                    <option value="Skin and venereology">Skin and venereology</option>
-                    <option value="Respiratory Medicine">Respiratory Medicine</option>
+                    <option value="Skin and venereology">
+                      Skin and venereology
+                    </option>
+                    <option value="Respiratory Medicine">
+                      Respiratory Medicine
+                    </option>
                     <option value="Family Medicine">Family Medicine</option>
-                    <option value="Emergency Medicine">Emergency Medicine</option>
+                    <option value="Emergency Medicine">
+                      Emergency Medicine
+                    </option>
                     <option value="Pediatrics">Pediatrics</option>
-                    <option value="Obstetrics and gynaecology">Obstetrics and gynaecology</option>
+                    <option value="Obstetrics and gynaecology">
+                      Obstetrics and gynaecology
+                    </option>
                     <option value="Surgery">Surgery</option>
                     <option value="Orthopaedics">Orthopaedics</option>
                     <option value="Anesthesia">Anesthesia</option>
