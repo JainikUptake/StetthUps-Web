@@ -21,28 +21,47 @@ import {
   NotebookPen,
   Heart,
 } from "lucide-react";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetAllColleges,
   GetAllStateAndCity,
+  RegisterUser,
 } from "../../../redux-toolkit/auth/registerSlice";
-import e from "cors";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { allStateAndCity } = useSelector((state) => state.GetStateAndCity);
+  const { allCollege } = useSelector((state) => state.GetAllColleges);
+  console.log(allCollege, "all clg");
+
+  useEffect(() => {
+    dispatch(GetAllStateAndCity());
+    dispatch(GetAllColleges());
+  }, [dispatch]);
+
+  const [cities, setCities] = useState([]);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     phone: "",
     password: "",
+    confirmPassword: "",
     state_id: "",
     city_id: "",
     college_id: "",
     current_year: "",
     preparing_for: "",
     interested_field: "",
+    birth_date: "",
   });
+  console.log(formData, "formdataa");
 
+  // new way to take updated value from user [if there is multiple value take from user then use this method]
   function handleChange(e) {
     // formData["first_name"] = "suraj"
     // formData["last_name"] = "pithva"
@@ -66,31 +85,96 @@ const Register = () => {
     }
   }
 
-  const dispatch = useDispatch();
-  const { allStateAndCity } = useSelector((state) => state.GetStateAndCity);
-  const { allCollege } = useSelector((state) => state.GetAllColleges);
-  console.log(allCollege, "all clg");
+  const handleSignUp = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    const {
+      first_name,
+      last_name,
+      email,
+      phone,
+      password,
+      confirmPassword,
+      state_id,
+      city_id,
+      college_id,
+      current_year,
+      preparing_for,
+      interested_field,
+      birth_date,
+    } = formData;
 
-  const [cities, setCities] = useState([]);
-  // const [selectedState, setSelectedState] = useState("");
+    // Ensure that all required fields are filled out
+    if (
+      first_name &&
+      last_name &&
+      email &&
+      phone &&
+      password &&
+      confirmPassword &&
+      state_id &&
+      city_id &&
+      college_id &&
+      current_year &&
+      preparing_for &&
+      interested_field &&
+      birth_date
+    ) {
+      // Check if password and confirmPassword match
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
 
-  useEffect(() => {
-    dispatch(GetAllStateAndCity());
-    dispatch(GetAllColleges());
-  }, [dispatch]);
+      // Make the API call to register the user
+      try {
+        const response = await dispatch(
+          RegisterUser({
+            first_name,
+            last_name,
+            email,
+            phone,
+            password,
+            state_id,
+            city_id,
+            college_id,
+            current_year,
+            preparing_for,
+            interested_field,
+            birth_date,
+          })
+        );
 
-  // const handleStateChange = (e) => {
-  //   const stateId = e.target.value;
-  //   console.log(stateId);
-  //   console.log(allStateAndCity?.data[0].id, "----------state");
-  //   const selectedStateData = allStateAndCity?.data.find(
-  //     (state) => state.id == stateId
-  //   );
-  //   console.log(selectedStateData, "-----------");
-  //   setCities(selectedStateData?.cities || []);
-  // };
+        console.log(
+          response?.payload?.response?.data?.message,
+          "---------------sign up responseeee-----------"
+        );
 
-  console.log(formData, "formdataa");
+        // Handle the response, e.g., show a success message, redirect, etc.
+        if (response?.payload?.status === 200) {
+          Swal.fire({
+            title: "Good job!",
+            text: "Registration successful!",
+            icon: "success",
+          });
+          navigate("/auth/login/email");
+          // Redirect or perform other actions as needed
+        } else {
+          const errorMessage = response.payload.response.data.message.email;
+          Swal.fire({
+            title: `${{ errorMessage }}`,
+            text: "Registration failed!",
+            icon: "error",
+          });
+        }
+      } catch (error) {
+        console.error("Error during registration:", error);
+        alert("An error occurred during registration. Please try again.");
+      }
+    } else {
+      alert("Please fill out all required fields.");
+    }
+  };
+
   return (
     <div className="background-image">
       <div className="register-container">
@@ -183,10 +267,13 @@ const Register = () => {
                     <Lock />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.confirmPassword}
                     id="confirmPassword"
-                    name="confirm password"
+                    name="confirmPassword"
                     placeholder="Confirm Password"
                     type="password"
+                    required
                   />
                 </InputGroup>
               </Col>
@@ -361,10 +448,13 @@ const Register = () => {
                     <Calendar />
                   </InputGroupText>
                   <Input
+                    onChange={handleChange}
+                    value={formData.birth_date}
                     id="birthDate"
-                    name="birth date"
+                    name="birth_date"
                     placeholder="Birth Date"
                     type="date"
+                    required
                   />
                 </InputGroup>
               </Col>
@@ -382,7 +472,9 @@ const Register = () => {
             <Row>
               <Col>
                 <InputGroup className="d-flex justify-content-center">
-                  <Button className="register-btn">Sign Up</Button>
+                  <Button className="register-btn" onClick={handleSignUp}>
+                    Sign Up
+                  </Button>
                 </InputGroup>
               </Col>
             </Row>
