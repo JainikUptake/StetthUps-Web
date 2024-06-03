@@ -59,20 +59,15 @@ const Register = () => {
     interested_field: "",
     birth_date: "",
   });
+
+  const [errors, setErrors] = useState({});
+
   console.log(formData, "formdataa");
 
-  // new way to take updated value from user [if there is multiple value take from user then use this method]
   function handleChange(e) {
-    // formData["first_name"] = "suraj"
-    // formData["last_name"] = "pithva"
-    // formData["email"] = "sjsjsssjs"
-
-    // formData[name] = value
-
     let { name, value } = e.target;
     console.log(name, "---", value);
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // setFormData((prev) => (formData[name] = value ));
 
     if (name == "state_id") {
       console.log(value);
@@ -149,7 +144,6 @@ const Register = () => {
           "---------------sign up responseeee-----------"
         );
 
-        // Handle the response, e.g., show a success message, redirect, etc.
         if (response?.payload?.status === 200) {
           Swal.fire({
             title: "Good job!",
@@ -157,11 +151,12 @@ const Register = () => {
             icon: "success",
           });
           navigate("/auth/login/email");
-          // Redirect or perform other actions as needed
         } else {
-          const errorMessage = response.payload.response.data.message.email;
+          const errorMessage = response?.payload?.response?.data?.message;
+          console.log(errorMessage, "-----these is errror message");
+          setErrors(response?.payload?.response?.data?.message || {});
           Swal.fire({
-            title: `${{ errorMessage }}`,
+            title: `${errorMessage}`,
             text: "Registration failed!",
             icon: "error",
           });
@@ -198,8 +193,10 @@ const Register = () => {
                     name="first_name"
                     placeholder="First Name"
                     type="text"
+                    required
                   />
                 </InputGroup>
+                {errors.first_name && <p className="error">{errors.first_name}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -213,8 +210,10 @@ const Register = () => {
                     name="last_name"
                     placeholder="Last Name"
                     type="text"
+                    required
                   />
                 </InputGroup>
+                {errors.last_name && <p className="error">{errors.last_name}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -228,8 +227,10 @@ const Register = () => {
                     name="phone"
                     placeholder="Phone"
                     type="tel"
+                    required
                   />
                 </InputGroup>
+                {errors.phone && <p className="error">{errors.phone}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -243,8 +244,10 @@ const Register = () => {
                     name="email"
                     placeholder="Email"
                     type="email"
+                    required
                   />
                 </InputGroup>
+                {errors.email && <p className="error">{errors.email}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -258,8 +261,10 @@ const Register = () => {
                     name="password"
                     placeholder="Password"
                     type="password"
+                    required
                   />
                 </InputGroup>
+                {errors.password && <p className="error">{errors.password}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -276,6 +281,9 @@ const Register = () => {
                     required
                   />
                 </InputGroup>
+                {errors.confirmPassword && (
+                  <p className="error">{errors.confirmPassword}</p>
+                )}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -286,10 +294,11 @@ const Register = () => {
                     id="state"
                     name="state_id"
                     type="select"
+                    required
                     onChange={handleChange}
                     value={formData.state_id}
                   >
-                    <option selected disabled>
+                    <option selected >
                       Select Your State
                     </option>
                     {allStateAndCity?.data?.map((ele, index) => (
@@ -299,6 +308,7 @@ const Register = () => {
                     ))}
                   </Input>
                 </InputGroup>
+                {errors.state_id && <p className="error">{errors.state_id}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -309,6 +319,7 @@ const Register = () => {
                     id="city"
                     name="city_id"
                     type="select"
+                    required
                     onChange={handleChange}
                     value={formData.city_id}
                   >
@@ -322,6 +333,7 @@ const Register = () => {
                     ))}
                   </Input>
                 </InputGroup>
+                {errors.city_id && <p className="error">{errors.city_id}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -332,6 +344,7 @@ const Register = () => {
                     id="college"
                     name="college_id"
                     type="select"
+                    required
                     onChange={handleChange}
                     value={formData.college_id}
                   >
@@ -345,6 +358,7 @@ const Register = () => {
                     ))}
                   </Input>
                 </InputGroup>
+                {errors.college_id && <p className="error">{errors.college_id}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -355,6 +369,7 @@ const Register = () => {
                     id="currentYear"
                     name="current_year"
                     type="select"
+                    required
                     onChange={handleChange}
                     value={formData.current_year}
                   >
@@ -369,6 +384,7 @@ const Register = () => {
                     <option value="post intern">Post Intern</option>
                   </Input>
                 </InputGroup>
+                {errors.current_year && <p className="error">{errors.current_year}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -392,6 +408,7 @@ const Register = () => {
                     <option value="other">Other</option>
                   </Input>
                 </InputGroup>
+                {errors.preparing_for && <p className="error">{errors.preparing_for}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -441,6 +458,7 @@ const Register = () => {
                     <option value="Radiology">Radiology</option>
                   </Input>
                 </InputGroup>
+                {errors.interested_field && <p className="error">{errors.interested_field}</p>}
               </Col>
               <Col xs={12} md={6} lg={4}>
                 <InputGroup>
@@ -457,6 +475,7 @@ const Register = () => {
                     required
                   />
                 </InputGroup>
+                {errors.birth_date && <p className="error">{errors.birth_date}</p>}
               </Col>
             </Row>
             <Row className="register-submit">
